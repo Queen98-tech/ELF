@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELF METAL ART DECORATIVE | Jasa Fabrikasi Logam</title>
+    <style>
+        body { margin: 0; font-family: 'Helvetica', 'Arial', sans-serif; color: #333; line-height: 1.6; background: #fff; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 10%; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 900; color: #d63031; font-size: 22px; letter-spacing: 1px; }
+        .menu a { text-decoration: none; color: #555; margin-left: 20px; font-size: 13px; font-weight: bold; }
+        
+        .hero { display: flex; align-items: center; padding: 60px 10%; gap: 40px; background: #fff; }
+        .hero-content { flex: 1; }
+        .hero-content h1 { color: #d63031; font-size: 42px; margin: 0; line-height: 1.2; }
+        .hero-content .subtitle { font-style: italic; color: #666; margin-top: 5px; margin-bottom: 25px; font-size: 18px; }
+        .hero-image { flex: 1; text-align: center; }
+        .hero-image img { width: 100%; max-width: 450px; border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        
+        .btn-pesan { background: #d63031; color: white; padding: 14px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; }
+        
+        .promo-bar { background: #d63031; color: white; text-align: center; padding: 35px 20px; position: relative; }
+        .promo-bar h2 { margin: 0; font-size: 24px; font-weight: bold; }
+        .promo-bar p { margin: 10px 0 0; opacity: 0.9; }
+        .promo-bar::after { content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 15px solid #d63031; }
+
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 80px 10%; text-align: center; }
+        .feature-item { padding: 15px; }
+        .feature-icon { width: 70px; height: 70px; background: #d63031; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 28px; box-shadow: 0 5px 15px rgba(214, 48, 49, 0.3); }
+        .feature-item h3 { font-size: 16px; margin-bottom: 10px; font-weight: bold; color: #1a1a1a; }
+        .feature-item p { font-size: 13px; color: #777; line-height: 1.4; }
+
+        .about { display: flex; flex-wrap: wrap; align-items: center; gap: 50px; padding: 80px 10%; background: #fcfcfc; border-top: 1px solid #f0f0f0; }
+        .about-text { flex: 1; min-width: 300px; }
+        .about-text h2 { color: #d63031; font-size: 28px; margin-bottom: 20px; position: relative; padding-bottom: 10px; }
+        .about-text h2::after { content: ''; position: absolute; bottom: 0; left: 0; width: 60px; height: 4px; background: #d63031; }
+        .about-img { flex: 1; min-width: 300px; }
+        .about-img img { width: 100%; border-radius: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+
+        /* KATALOG GRID */
+        .katalog-section { padding: 60px 10%; text-align: center; }
+        .katalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 40px; }
+        .katalog-item { background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+        .katalog-item:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-color: #d63031; }
+        .katalog-item img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; }
+        .katalog-item h4 { margin: 15px 0 5px; color: #1a1a1a; }
+
+        /* MODAL POPUP */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); overflow: auto; }
+        .modal-content { background: white; margin: 5% auto; padding: 30px; width: 90%; max-width: 500px; border-radius: 15px; position: relative; text-align: center; animation: zoomIn 0.3s; }
+        @keyframes zoomIn { from {transform: scale(0.7); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; font-weight: bold; cursor: pointer; color: #999; }
+        .close-btn:hover { color: #d63031; }
+        #modal-img { width: 100%; border-radius: 10px; margin-bottom: 20px; }
+        .btn-wa-modal { background: #25d366; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; margin-top: 15px; }
+
+        .wa-float { position: fixed; bottom: 25px; left: 25px; background: #25d366; color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); z-index: 9999; }
+        footer { background: #1a1a1a; color: #999; text-align: center; padding: 30px; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">ELF METAL ART</div>
+        <div class="menu">
+            <a href="#">HOME</a>
+            <a href="#">ABOUT US</a>
+            <a href="#katalog">LAYANAN</a>
+            <a href="#">GALERI</a>
+            <a href="#">KONTAK KAMI</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ELF Metal Art Decorative</h1>
+            <div class="subtitle">"Spesialis Laser Cutting & Fabrikasi Logam Custom"</div>
+            <p style="color: #555; font-size: 15px;">Kami menerima berbagai macam pesanan mulai dari pagar minimalis, balkon artistik, railing tangga, kanopi, hingga partisi dinding dengan desain kustom sesuai keinginan Anda.</p>
+            <br>
+            <a href="https://wa.me/6281333366554?text=Halo%20Admin%20ELF%20Metal%20Art,%20saya%20tertarik%20untuk%20order..." class="btn-pesan">Pesan Sekarang</a>
+        </div>
+        <div class="hero-image">
+            <img src="C:\Users\MyBook Hype\Downloads\WhatsApp Image 2026-04-27 at 11.52.18 AM (2).jpeg">
+        </div>
+    </section>
+
+    <div class="promo-bar">
+        <h2>Selamat Datang di Elf Metal Art Decorative Website</h2>
+        <p>Penyedia jasa fabrikasi logam & dekorasi artistik untuk seluruh wilayah Pulau Jawa</p>
+    </div>
+
+    <section class="features">
+        <div class="feature-item">
+            <div class="feature-icon">🛡</div>
+            <h3>Bahan Berkualitas</h3>
+            <p>Kami menggunakan material pilihan yang tahan lama dan sesuai standar keamanan tinggi.</p>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon">Rp</div>
+            <h3>Harga Terjangkau</h3>
+            <p>Penawaran harga terbaik yang kompetitif dan fleksibel sesuai kebutuhan Anda.</p>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon">👷</div>
+            <h3>Berpengalaman</h3>
+            <p>Dikerjakan oleh tenaga ahli profesional yang sudah berpengalaman bertahun-tahun.</p>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon">⚡</div>
+            <h3>Proses Cepat</h3>
+            <p>Pengerjaan tepat waktu dengan hasil akhir yang rapi, kuat, dan tentunya estetis.</p>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="about-text">
+            <h2>About Us</h2>
+            <p><b>ELF Metal Art Decorative</b> adalah bengkel fabrikasi logam profesional yang mengutamakan nilai seni dan kualitas konstruksi. Kami melayani pembuatan segala jenis produk berbahan dasar besi, stainless steel, dan logam lainnya.</p>
+            <p>Visi kami adalah menjadi mitra terpercaya bagi klien dalam mewujudkan hunian yang lebih indah dan aman melalui karya logam dekoratif yang berkualitas tinggi.</p>
+        </div>
+        <div class="about-img">
+            <img src="C:\Users\MyBook Hype\Downloads\WhatsApp Image 2026-04-27 at 11.52.18 AM (2).jpeg" alt="Produk ELF Metal Art">
+        </div>
+    </section>
+
+    <section id="katalog" class="katalog-section">
+        <h2 style="color: #d63031;">Katalog Layanan Kami</h2>
+        <p>Pilih kategori untuk melihat detail produk</p>
+        
+        <div class="katalog-grid">
+            <div class="katalog-item" onclick="openPop('Pagar Plat Cutting', 'Desain motif laser cutting modern, bahan plat besi tebal, finishing anti karat.', 'C:\\Users\\MyBook Hype\\Downloads\\WhatsApp Image 2026-04-27 at 7.53.40 AM.jpeg')">
+                <img src="C:\Users\MyBook Hype\Downloads\WhatsApp Image 2026-04-27 at 11.52.18 AM.jpeg">
+                <h4>Pagar Plat Cutting</h4>
+            </div>
+
+            <div class="katalog-item" onclick="openPop('Kanopi Minimalis', 'Rangka hollow galvanis, atap alderon/kaca tempered. Kuat dan elegan.', 'C:\\Users\\MyBook Hype\\Downloads\\Butik2.jpeg')">
+                <img src="https://sobatbangun.com/wp-content/uploads/2025/08/Model-Kanopi-Baja-Ringan-Atap-Alderon-1024x772.jpg">
+                <h4>Kanopi</h4>
+            </div>
+
+            <div class="katalog-item" onclick="openPop('Lampu Tenaga Surya', 'Pencahayaan outdoor dekoratif, hemat energi, otomatis menyala malam hari.', 'C:\\Users\\MyBook Hype\\Downloads\\WhatsApp Image 2026-04-27 at 10.58.20 AM.jpeg')">
+                <img src="https://tse1.mm.bing.net/th/id/OIP.sr1CWDGNPxyX_A7kPYj5AQHaHa?pid=Api&P=0&h=180">
+                <h4>Lampu Tenaga Surya</h4>
+            </div>
+
+            <div class="katalog-item" onclick="openPop('Teralis Jendela', 'Pengaman jendela dengan motif seni metal art yang tidak kaku.', 'C:\\Users\\MyBook Hype\\Downloads\\Butik.jpeg')">
+                <img src="C:\Users\MyBook Hype\Downloads\WhatsApp Image 2026-04-27 at 11.52.14 AM.jpeg">
+                <h4>Teralis & Railing</h4>
+            </div>
+        </div>
+    </section>
+
+    <div id="popModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closePop()">&times;</span>
+            <img id="modal-img-src" src="" alt="Detail">
+            <h2 id="modal-title-text" style="color:#d63031; margin-bottom:10px;"></h2>
+            <p id="modal-desc-text" style="color:#555; font-size:14px;"></p>
+            <a id="modal-wa-btn" href="" class="btn-wa-modal">Hubungi Admin Sekarang</a>
+        </div>
+    </div>
+
+    <a href="https://wa.me/6281333366554" class="wa-float">
+        <span>Halo, ada yang bisa kami bantu?</span>
+    </a>
+
+    <footer>
+        Copyright &copy; 2026 ELF METAL ART DECORATIVE - All Rights Reserved.
+    </footer>
+
+    <script>
+        function openPop(title, desc, img) {
+            document.getElementById('popModal').style.display = "block";
+            document.getElementById('modal-title-text').innerText = title;
+            document.getElementById('modal-desc-text').innerText = desc;
+            document.getElementById('modal-img-src').src = img;
+            
+            // Set link WA otomatis
+            let pesan = "Halo ELF Metal Art, saya ingin tanya harga dan pemasangan untuk " + title;
+            document.getElementById('modal-wa-btn').href = "https://wa.me/6281333366554?text=" + encodeURIComponent(pesan);
+        }
+
+        function closePop() {
+            document.getElementById('popModal').style.display = "none";
+        }
+
+        // Tutup kalau klik sembarang di luar kotak putih
+        window.onclick = function(event) {
+            let mod = document.getElementById('popModal');
+            if (event.target == mod) {
+                mod.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
