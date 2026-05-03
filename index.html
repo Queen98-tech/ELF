@@ -1,148 +1,138 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ELF METAL ART DECORATIVE | Spesialis Laser Cutting</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --red: #cc1c1c; --red-dark: #a81515; --text: #222; --border: #e0e0e0; }
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--text); background: #fff; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELF METAL ART DECORATIVE</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        :root { --red: #cc1c1c; --border: #e0e0e0; }
 
-    /* Navigasi */
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: #fff; z-index: 100; }
-    .logo { font-size: 1.1rem; font-weight: 800; color: var(--red); letter-spacing: 1px; text-transform: uppercase; }
+        /* Navigasi - Header */
+        nav { padding: 15px 20px; background: #fff; border-bottom: 1px solid var(--border); display: flex; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .logo { color: var(--red); font-weight: 900; font-size: 1.2rem; letter-spacing: 1px; text-transform: uppercase; }
 
-    /* Hero Section (Balikin Gambar Gede) */
-    #home { padding: 30px 20px; display: flex; flex-direction: column; align-items: center; gap: 24px; max-width: 1200px; margin: auto; }
-    .hero-image { width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-    .hero-image img { width: 100%; height: auto; display: block; }
-    .hero-content { width: 100%; text-align: center; }
-    .hero-content h1 { font-size: 2rem; font-weight: 800; color: var(--red); line-height: 1.2; margin-bottom: 15px; }
-    .hero-content p { font-size: 1rem; line-height: 1.7; margin-bottom: 25px; color: #555; }
-    .btn-pesan { display: inline-block; background: var(--red); color: #fff; padding: 14px 30px; border-radius: 8px; font-size: 1rem; font-weight: 700; text-decoration: none; transition: 0.3s; }
-    .btn-pesan:hover { background: var(--red-dark); transform: scale(1.05); }
+        /* Hero Section */
+        #home { padding: 20px; max-width: 1200px; margin: auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .hero-img { width: 100%; border-radius: 12px; overflow: hidden; }
+        .hero-img img { width: 100%; height: auto; display: block; object-fit: cover; }
+        .hero-text { text-align: center; width: 100%; }
+        .hero-text h1 { font-size: 2.2rem; font-weight: 800; color: var(--red); margin-bottom: 10px; line-height: 1.1; }
+        .hero-text p { font-size: 1rem; color: #333; line-height: 1.6; margin-bottom: 20px; }
+        .btn-wa { display: inline-block; background: var(--red); color: #fff; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
 
-    /* Welcome Banner */
-    .welcome-banner { background: var(--red); color: #fff; text-align: center; padding: 20px; margin-top: 40px; }
-    .welcome-banner h2 { font-size: 1.1rem; font-weight: 700; text-transform: uppercase; }
+        /* Welcome Bar */
+        .welcome-bar { background: var(--red); color: #fff; text-align: center; padding: 15px; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; margin: 20px 0; }
 
-    /* About Section */
-    #about { padding: 60px 20px; max-width: 1200px; margin: auto; }
-    .about-grid { display: flex; flex-direction: column; gap: 40px; align-items: center; }
-    .about-image { width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
-    .about-image img { width: 100%; height: auto; display: block; }
-    .about-text h2 { font-size: 2rem; font-weight: 800; color: var(--red); margin-bottom: 15px; position: relative; padding-bottom: 10px; }
-    .about-text h2::after { content: ''; position: absolute; left: 0; bottom: 0; width: 50px; height: 4px; background: var(--red); }
-    .about-text p { font-size: 1rem; line-height: 1.8; color: #444; margin-top: 20px; }
+        /* About Us */
+        #about { padding: 20px; max-width: 1200px; margin: auto; display: flex; flex-direction: column; gap: 20px; }
+        .about-img { width: 100%; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+        .about-img img { width: 100%; height: auto; display: block; }
+        .about-info h2 { font-size: 1.8rem; font-weight: 800; color: var(--red); margin-bottom: 10px; }
+        .about-info p { line-height: 1.7; color: #444; font-size: 0.95rem; }
 
-    /* Katalog Section (Sesuai Gambar Vercel) */
-    #layanan { padding: 60px 20px; background: #fff; max-width: 1200px; margin: auto; }
-    #layanan h2 { text-align: center; font-size: 1.8rem; font-weight: 800; color: var(--red); margin-bottom: 40px; }
-    .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-    
-    .service-card { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: #fff; display: flex; flex-direction: column; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-    .service-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-    .card-img { width: 100%; height: 160px; overflow: hidden; border-bottom: 1px solid var(--border); }
-    .card-img img { width: 100%; height: 100%; object-fit: cover; }
-    .card-label { text-align: center; padding: 15px; font-weight: 700; font-size: 0.95rem; flex-grow: 1; }
-    
-    /* Tombol ke Dashboard */
-    .btn-action { background: var(--red); color: white; border: none; padding: 12px; width: 100%; cursor: pointer; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; }
-    .btn-action:hover { background: var(--red-dark); }
+        /* Katalog - Sesuai Screenshot */
+        #layanan { padding: 40px 20px; max-width: 1200px; margin: auto; }
+        #layanan h2 { text-align: center; font-size: 1.8rem; font-weight: 800; color: var(--red); margin-bottom: 30px; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        
+        .card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; background: #fff; }
+        .card-photo { width: 100%; height: 160px; border-bottom: 1px solid var(--border); }
+        .card-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .card-name { padding: 12px; text-align: center; font-weight: 700; font-size: 0.9rem; flex-grow: 1; display: flex; align-items: center; justify-content: center; }
+        
+        .btn-nota { background: var(--red); color: #fff; border: none; padding: 10px; width: 100%; font-weight: 800; font-size: 0.75rem; cursor: pointer; text-transform: uppercase; }
 
-    /* Desktop View */
-    @media (min-width: 768px) {
-      #home { flex-direction: row; padding: 80px 20px; gap: 60px; }
-      .hero-image { flex: 1; order: 2; }
-      .hero-content { flex: 1; text-align: left; order: 1; }
-      .hero-content h1 { font-size: 3.5rem; }
-      .about-grid { flex-direction: row; }
-      .about-image, .about-text { flex: 1; }
-      .services-grid { grid-template-columns: repeat(4, 1fr); gap: 25px; }
-      .card-img { height: 220px; }
-    }
-  </style>
+        /* Tablet & Desktop */
+        @media (min-width: 768px) {
+            #home { flex-direction: row; padding: 60px 20px; gap: 50px; }
+            .hero-img { flex: 1.2; order: 2; }
+            .hero-text { flex: 1; text-align: left; order: 1; }
+            .hero-text h1 { font-size: 3.5rem; }
+            
+            #about { flex-direction: row; align-items: center; gap: 40px; padding: 60px 20px; }
+            .about-img, .about-info { flex: 1; }
+            
+            .grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+            .card-photo { height: 200px; }
+        }
+    </style>
 </head>
 <body>
 
-  <nav><div class="logo">ELF METAL ART</div></nav>
+    <nav><div class="logo">ELF METAL ART</div></nav>
 
-  <!-- Hero Section -->
-  <section id="home">
-    <div class="hero-image"><img src="Hero.jpeg" alt="ELF Metal Art Hero"></div>
-    <div class="hero-content">
-      <h1>ELF Metal Art Decorative</h1>
-      <p>Spesialis Laser Cutting & Fabrikasi Logam Custom. Solusi estetika untuk pagar, kanopi, dan dekorasi rumah Anda.</p>
-      <a href="https://wa.me/6281333366554" class="btn-pesan">KONSULTASI GRATIS</a>
-    </div>
-  </section>
+    <!-- Hero -->
+    <section id="home">
+        <div class="hero-img"><img src="Hero.jpeg" alt="Hero"></div>
+        <div class="hero-text">
+            <h1>ELF Metal Art Decorative</h1>
+            <p>Spesialis Laser Cutting & Fabrikasi Logam Custom. Kami siap mewujudkan dekorasi rumah impian Anda dengan kualitas terbaik.</p>
+            <a href="https://wa.me/6281333366554" class="btn-wa">KONSULTASI GRATIS</a>
+        </div>
+    </section>
 
-  <div class="welcome-banner"><h2>Selamat Datang di Elf Metal Art Decorative</h2></div>
+    <div class="welcome-bar">Selamat Datang di Elf Metal Art Decorative</div>
 
-  <!-- About Section -->
-  <section id="about">
-    <div class="about-grid">
-      <div class="about-image"><img src="About-us.jpeg" alt="Workshop ELF Metal Art"></div>
-      <div class="about-text">
-        <h2>About Us</h2>
-        <p><strong>ELF Metal Art Decorative</strong> hadir untuk memberikan sentuhan seni pada bangunan Anda. Kami melayani pembuatan pagar minimalis, balkon artistik, hingga partisi laser cutting dengan hasil presisi dan material berkualitas tinggi di Probolinggo.</p>
-      </div>
-    </div>
-  </section>
+    <!-- About -->
+    <section id="about">
+        <div class="about-img"><img src="About-us.jpeg" alt="About"></div>
+        <div class="about-info">
+            <h2>About Us</h2>
+            <p><strong>ELF Metal Art Decorative</strong> adalah bengkel fabrikasi logam profesional di Probolinggo. Kami ahli dalam pembuatan pagar, kanopi, balkon, dan dekorasi artistik lainnya menggunakan teknologi laser cutting terkini.</p>
+        </div>
+    </section>
 
-  <!-- Katalog Section -->
-  <section id="layanan">
-    <h2>Katalog Layanan Kami</h2>
-    <div class="services-grid" id="produk-container">
-      <!-- Item Statis (Asli Vercel) -->
-      <div class="service-card">
-        <div class="card-img"><img src="Pagar (1).jpg" alt="Pagar"></div>
-        <div class="card-label">Pagar</div>
-        <button class="btn-action" onclick="keDashboard('Pagar')">PROSES NOTA</button>
-      </div>
-      <div class="service-card">
-        <div class="card-img"><img src="Kanopi.jpg" alt="Kanopi"></div>
-        <div class="card-label">Kanopi</div>
-        <button class="btn-action" onclick="keDashboard('Kanopi')">PROSES NOTA</button>
-      </div>
-      <div class="service-card">
-        <div class="card-img"><img src="Ralling Tangga.jpg" alt="Railing"></div>
-        <div class="card-label">Railing Tangga</div>
-        <button class="btn-action" onclick="keDashboard('Railing Tangga')">PROSES NOTA</button>
-      </div>
-      <div class="service-card">
-        <div class="card-img"><img src="Balcon Railing.webp" alt="Balkon"></div>
-        <div class="card-label">Balkon</div>
-        <button class="btn-action" onclick="keDashboard('Balkon')">PROSES NOTA</button>
-      </div>
-    </div>
-  </section>
+    <!-- Katalog -->
+    <section id="layanan">
+        <h2>Katalog Layanan Kami</h2>
+        <div class="grid" id="container-katalog">
+            <!-- Manual Items -->
+            <div class="card">
+                <div class="card-photo"><img src="Pagar (1).jpg"></div>
+                <div class="card-name">Pagar</div>
+                <button class="btn-nota" onclick="kirimKeDashboard('Pagar')">PROSES NOTA</button>
+            </div>
+            <div class="card">
+                <div class="card-photo"><img src="Kanopi.jpg"></div>
+                <div class="card-name">Kanopi</div>
+                <button class="btn-nota" onclick="kirimKeDashboard('Kanopi')">PROSES NOTA</button>
+            </div>
+            <div class="card">
+                <div class="card-photo"><img src="Ralling Tangga.jpg"></div>
+                <div class="card-name">Ralling Tangga</div>
+                <button class="btn-nota" onclick="kirimKeDashboard('Ralling Tangga')">PROSES NOTA</button>
+            </div>
+            <div class="card">
+                <div class="card-photo"><img src="Balcon Railing.webp"></div>
+                <div class="card-name">Balkon</div>
+                <button class="btn-nota" onclick="kirimKeDashboard('Balkon')">PROSES NOTA</button>
+            </div>
+        </div>
+    </section>
 
-  <script>
-    // Load barang dari LocalStorage Dashboard
-    function loadKatalogOtomatis() {
-      const container = document.getElementById('produk-container');
-      const dataProduk = JSON.parse(localStorage.getItem('produkList')) || [];
-      
-      dataProduk.forEach(p => {
-        const div = document.createElement('div');
-        div.className = 'service-card';
-        div.innerHTML = `
-          <div class="card-img"><img src="${p.foto}" alt="${p.nama}"></div>
-          <div class="card-label">${p.nama}</div>
-          <button class="btn-action" onclick="keDashboard('${p.nama}')">PROSES NOTA</button>
-        `;
-        container.appendChild(div);
-      });
-    }
+    <script>
+        function loadItems() {
+            const container = document.getElementById('container-katalog');
+            const data = JSON.parse(localStorage.getItem('produkList')) || [];
+            
+            data.forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'card';
+                div.innerHTML = `
+                    <div class="card-photo"><img src="${p.foto}"></div>
+                    <div class="card-name">${p.nama}</div>
+                    <button class="btn-nota" onclick="kirimKeDashboard('${p.nama}')">PROSES NOTA</button>
+                `;
+                container.appendChild(div);
+            });
+        }
 
-    function keDashboard(nama) {
-      window.location.href = `Dashboard.html?produk=${encodeURIComponent(nama)}`;
-    }
+        function kirimKeDashboard(nama) {
+            window.location.href = `Dashboard.html?produk=${encodeURIComponent(nama)}`;
+        }
 
-    window.onload = loadKatalogOtomatis;
-  </script>
-
+        window.onload = loadItems;
+    </script>
 </body>
 </html>
