@@ -31,21 +31,19 @@
         .about-info h2 { font-size: 1.8rem; font-weight: 800; color: var(--red); margin-bottom: 10px; }
         .about-info p { line-height: 1.7; color: #444; font-size: 0.95rem; }
 
-        /* Katalog - FULL 7 ITEMS */
+        /* Katalog */
         #layanan { padding: 40px 20px; max-width: 1200px; margin: auto; }
         #layanan h2 { text-align: center; font-size: 1.8rem; font-weight: 800; color: var(--red); margin-bottom: 30px; text-transform: uppercase; }
         
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         
-        .card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; background: #fff; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); }
+        .card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; background: #fff; transition: 0.3s; cursor: pointer; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         
-        .card-photo { width: 100%; height: 160px; border-bottom: 1px solid var(--border); overflow: hidden; }
+        .card-photo { width: 100%; height: 160px; overflow: hidden; }
         .card-photo img { width: 100%; height: 100%; object-fit: cover; }
         
-        .card-name { padding: 15px 10px; text-align: center; font-weight: 700; font-size: 1rem; flex-grow: 1; display: flex; align-items: center; justify-content: center; color: #222; }
-        
-        .btn-nota { background: var(--red); color: #fff; border: none; padding: 12px; width: 100%; font-weight: 800; font-size: 0.8rem; cursor: pointer; text-transform: uppercase; }
+        .card-name { padding: 15px 10px; text-align: center; font-weight: 700; font-size: 1rem; color: #222; background: #fff; }
 
         /* Tablet & Desktop Layout */
         @media (min-width: 768px) {
@@ -87,48 +85,40 @@
         <h2>Katalog Layanan Kami</h2>
         <div class="grid" id="container-katalog">
             <!-- ITEM 1 -->
-            <div class="card">
+            <div class="card" onclick="kirimKeDashboard('Pagar')">
                 <div class="card-photo"><img src="Pagar (1).jpg"></div>
                 <div class="card-name">Pagar</div>
-                <button class="btn-nota" onclick="kirimKeDashboard('Pagar')">PROSES NOTA</button>
             </div>
             <!-- ITEM 2 -->
-            <div class="card">
+            <div class="card" onclick="kirimKeDashboard('Kanopi')">
                 <div class="card-photo"><img src="Kanopi.jpg"></div>
                 <div class="card-name">Kanopi</div>
-                <button class="btn-nota" onclick="kirimKeDashboard('Kanopi')">PROSES NOTA</button>
             </div>
             <!-- ITEM 3 -->
-            <div class="card">
+            <div class="card" onclick="kirimKeDashboard('Ralling Tangga')">
                 <div class="card-photo"><img src="Ralling Tangga.jpg"></div>
                 <div class="card-name">Ralling Tangga</div>
-                <button class="btn-nota" onclick="kirimKeDashboard('Ralling Tangga')">PROSES NOTA</button>
             </div>
             <!-- ITEM 4 -->
-            <div class="card">
+            <div class="card" onclick="kirimKeDashboard('Balkon')">
                 <div class="card-photo"><img src="Balcon Railing.webp"></div>
                 <div class="card-name">Balkon</div>
-                <button class="btn-nota" onclick="kirimKeDashboard('Balkon')">PROSES NOTA</button>
             </div>
             <!-- ITEM 5 -->
-            <div class="card">
+            <div class="card" onclick="kirimKeDashboard('Lampu Tenaga Surya')">
                 <div class="card-photo"><img src="lampu Tenaga Surya.jpg"></div>
                 <div class="card-name">Lampu Tenaga Surya</div>
-                <button class="btn-nota" onclick="kirimKeDashboard('Lampu Tenaga Surya')">PROSES NOTA</button>
             </div>
             <!-- ITEM 6 -->
-            <div class="card">
+            <div class="card" onclick="kirimKeDashboard('Teralis')">
                 <div class="card-photo"><img src="tralis pintu.jpg"></div>
                 <div class="card-name">Teralis</div>
-                <button class="btn-nota" onclick="kirimKeDashboard('Teralis')">PROSES NOTA</button>
             </div>
             <!-- ITEM 7 -->
-            <div class="card">
+            <div class="card" onclick="kirimKeDashboard('Pagar Plat Cutting')">
                 <div class="card-photo"><img src="Pagar laser cutting.jpg"></div>
                 <div class="card-name">Pagar Plat Cutting</div>
-                <button class="btn-nota" onclick="kirimKeDashboard('Pagar Plat Cutting')">PROSES NOTA</button>
             </div>
-            <!-- TEMPAT PRODUK BARU DARI DASHBOARD -->
         </div>
     </section>
 
@@ -140,10 +130,10 @@
             extraData.forEach(p => {
                 const div = document.createElement('div');
                 div.className = 'card';
+                div.onclick = () => kirimKeDashboard(p.nama);
                 div.innerHTML = `
                     <div class="card-photo"><img src="${p.foto}"></div>
                     <div class="card-name">${p.nama}</div>
-                    <button class="btn-nota" onclick="kirimKeDashboard('${p.nama}')">PROSES NOTA</button>
                 `;
                 container.appendChild(div);
             });
