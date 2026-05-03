@@ -5,27 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ELF METAL ART DECORATIVE</title>
     <style>
-        /* Reset & Base Styles */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-        :root { --red: #cc1c1c; --border: #e0e0e0; --dark: #333; }
-        body { background-color: #f9f9f9; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        :root { --red: #cc1c1c; --border: #e0e0e0; }
 
-        /* Navigasi - Header */
+        /* Navigasi */
         nav { padding: 15px 20px; background: #fff; border-bottom: 1px solid var(--border); display: flex; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .logo { color: var(--red); font-weight: 900; font-size: 1.2rem; letter-spacing: 1px; text-transform: uppercase; }
 
         /* Hero Section */
         #home { padding: 20px; max-width: 1200px; margin: auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .hero-img { width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .hero-img { width: 100%; border-radius: 12px; overflow: hidden; }
         .hero-img img { width: 100%; height: auto; display: block; object-fit: cover; }
         .hero-text { text-align: center; width: 100%; }
         .hero-text h1 { font-size: 2.2rem; font-weight: 800; color: var(--red); margin-bottom: 10px; line-height: 1.1; }
-        .hero-text p { font-size: 1rem; color: var(--dark); line-height: 1.6; margin-bottom: 20px; }
-        .btn-wa { display: inline-block; background: var(--red); color: #fff; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.3s; }
-        .btn-wa:hover { background: #a31616; transform: scale(1.05); }
+        .hero-text p { font-size: 1rem; color: #333; line-height: 1.6; margin-bottom: 20px; }
+        .btn-wa { display: inline-block; background: var(--red); color: #fff; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
 
         /* Welcome Bar */
-        .welcome-bar { background: var(--red); color: #fff; text-align: center; padding: 15px; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; margin: 20px 0; letter-spacing: 1px; }
+        .welcome-bar { background: var(--red); color: #fff; text-align: center; padding: 15px; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; margin: 20px 0; }
 
         /* About Us */
         #about { padding: 20px; max-width: 1200px; margin: auto; display: flex; flex-direction: column; gap: 20px; }
@@ -34,23 +31,21 @@
         .about-info h2 { font-size: 1.8rem; font-weight: 800; color: var(--red); margin-bottom: 10px; }
         .about-info p { line-height: 1.7; color: #444; font-size: 0.95rem; }
 
-        /* Katalog / Layanan */
+        /* Katalog - FULL 7 ITEMS */
         #layanan { padding: 40px 20px; max-width: 1200px; margin: auto; }
         #layanan h2 { text-align: center; font-size: 1.8rem; font-weight: 800; color: var(--red); margin-bottom: 30px; text-transform: uppercase; }
         
-        /* Grid Layout */
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         
-        .card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; background: #fff; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; background: #fff; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); }
         
         .card-photo { width: 100%; height: 160px; border-bottom: 1px solid var(--border); overflow: hidden; }
         .card-photo img { width: 100%; height: 100%; object-fit: cover; }
         
-        .card-name { padding: 12px; text-align: center; font-weight: 700; font-size: 0.95rem; flex-grow: 1; display: flex; align-items: center; justify-content: center; color: var(--dark); }
+        .card-name { padding: 15px 10px; text-align: center; font-weight: 700; font-size: 1rem; flex-grow: 1; display: flex; align-items: center; justify-content: center; color: #222; }
         
-        .btn-nota { background: var(--red); color: #fff; border: none; padding: 12px; width: 100%; font-weight: 800; font-size: 0.75rem; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
-        .btn-nota:hover { background: #a31616; }
+        .btn-nota { background: var(--red); color: #fff; border: none; padding: 12px; width: 100%; font-weight: 800; font-size: 0.8rem; cursor: pointer; text-transform: uppercase; }
 
         /* Tablet & Desktop Layout */
         @media (min-width: 768px) {
@@ -58,102 +53,107 @@
             .hero-img { flex: 1.2; order: 2; }
             .hero-text { flex: 1; text-align: left; order: 1; }
             .hero-text h1 { font-size: 3.5rem; }
-            
             #about { flex-direction: row; align-items: center; gap: 40px; padding: 60px 20px; }
             .about-img, .about-info { flex: 1; }
-            
             .grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
             .card-photo { height: 220px; }
-            .card-name { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigasi -->
-    <nav>
-        <div class="logo">ELF METAL ART</div>
-    </nav>
+    <nav><div class="logo">ELF METAL ART</div></nav>
 
-    <!-- Hero Section -->
     <section id="home">
-        <div class="hero-img">
-            <img src="Hero.jpeg" alt="Hero ELF Metal Art">
-        </div>
+        <div class="hero-img"><img src="Hero.jpeg" alt="Hero"></div>
         <div class="hero-text">
             <h1>ELF Metal Art Decorative</h1>
-            <p>Spesialis Laser Cutting & Fabrikasi Logam Custom. Kami siap mewujudkan dekorasi rumah impian Anda dengan kualitas terbaik dan hasil yang presisi.</p>
+            <p>Spesialis Laser Cutting & Fabrikasi Logam Custom Probolinggo.</p>
             <a href="https://wa.me/6281333366554" class="btn-wa">KONSULTASI GRATIS</a>
         </div>
     </section>
 
-    <!-- Welcome Bar -->
     <div class="welcome-bar">Selamat Datang di Elf Metal Art Decorative</div>
 
-    <!-- About Us Section -->
     <section id="about">
-        <div class="about-img">
-            <img src="About-us.jpeg" alt="Bengkel ELF Metal Art">
-        </div>
+        <div class="about-img"><img src="About-us.jpeg" alt="About"></div>
         <div class="about-info">
             <h2>About Us</h2>
-            <p><strong>ELF Metal Art Decorative</strong> adalah bengkel fabrikasi logam profesional yang berbasis di Probolinggo. Kami ahli dalam pembuatan berbagai kebutuhan eksterior dan interior seperti pagar, kanopi, balkon, dan dekorasi artistik lainnya menggunakan teknologi laser cutting terkini untuk hasil yang maksimal.</p>
+            <p><strong>ELF Metal Art Decorative</strong> adalah bengkel fabrikasi logam profesional. Kami melayani pembuatan pagar, kanopi, dan dekorasi laser cutting.</p>
         </div>
     </section>
 
-    <!-- Katalog Section -->
     <section id="layanan">
         <h2>Katalog Layanan Kami</h2>
         <div class="grid" id="container-katalog">
-            <!-- Konten akan diisi oleh JavaScript -->
+            <!-- ITEM 1 -->
+            <div class="card">
+                <div class="card-photo"><img src="Pagar (1).jpg"></div>
+                <div class="card-name">Pagar</div>
+                <button class="btn-nota" onclick="kirimKeDashboard('Pagar')">PROSES NOTA</button>
+            </div>
+            <!-- ITEM 2 -->
+            <div class="card">
+                <div class="card-photo"><img src="Kanopi.jpg"></div>
+                <div class="card-name">Kanopi</div>
+                <button class="btn-nota" onclick="kirimKeDashboard('Kanopi')">PROSES NOTA</button>
+            </div>
+            <!-- ITEM 3 -->
+            <div class="card">
+                <div class="card-photo"><img src="Ralling Tangga.jpg"></div>
+                <div class="card-name">Ralling Tangga</div>
+                <button class="btn-nota" onclick="kirimKeDashboard('Ralling Tangga')">PROSES NOTA</button>
+            </div>
+            <!-- ITEM 4 -->
+            <div class="card">
+                <div class="card-photo"><img src="Balcon Railing.webp"></div>
+                <div class="card-name">Balkon</div>
+                <button class="btn-nota" onclick="kirimKeDashboard('Balkon')">PROSES NOTA</button>
+            </div>
+            <!-- ITEM 5 -->
+            <div class="card">
+                <div class="card-photo"><img src="lampu Tenaga Surya.jpg"></div>
+                <div class="card-name">Lampu Tenaga Surya</div>
+                <button class="btn-nota" onclick="kirimKeDashboard('Lampu Tenaga Surya')">PROSES NOTA</button>
+            </div>
+            <!-- ITEM 6 -->
+            <div class="card">
+                <div class="card-photo"><img src="tralis pintu.jpg"></div>
+                <div class="card-name">Teralis</div>
+                <button class="btn-nota" onclick="kirimKeDashboard('Teralis')">PROSES NOTA</button>
+            </div>
+            <!-- ITEM 7 -->
+            <div class="card">
+                <div class="card-photo"><img src="Pagar laser cutting.jpg"></div>
+                <div class="card-name">Pagar Plat Cutting</div>
+                <button class="btn-nota" onclick="kirimKeDashboard('Pagar Plat Cutting')">PROSES NOTA</button>
+            </div>
+            <!-- TEMPAT PRODUK BARU DARI DASHBOARD -->
         </div>
     </section>
 
     <script>
-        // DAFTAR PRODUK MANUAL (Bawaan)
-        const produkAwal = [
-            { nama: "Pagar", foto: "Pagar (1).jpg" },
-            { nama: "Kanopi", foto: "Kanopi.jpg" },
-            { nama: "Ralling Tangga", foto: "Ralling Tangga.jpg" },
-            { nama: "Balkon", foto: "Balcon Railing.webp" },
-            { nama: "Lampu Tenaga Surya", foto: "lampu Tenaga Surya.jpg" },
-            { nama: "Teralis", foto: "tralis pintu.jpg" },
-            { nama: "Pagar Plat Cutting", foto: "Pagar laser cutting.jpg" }
-        ];
-
-        function loadKatalog() {
+        function loadExtraItems() {
             const container = document.getElementById('container-katalog');
+            const extraData = JSON.parse(localStorage.getItem('produkList')) || [];
             
-            // Ambil produk tambahan dari localStorage (jika ada input dari Dashboard)
-            const produkTambahan = JSON.parse(localStorage.getItem('produkList')) || [];
-            
-            // Gabungkan produk bawaan dengan produk dari dashboard
-            const semuaProduk = [...produkAwal, ...produkTambahan];
-            
-            // Bersihkan container sebelum render
-            container.innerHTML = "";
-
-            semuaProduk.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <div class="card-photo">
-                        <img src="${p.foto}" alt="${p.nama}" onerror="this.src='https://via.placeholder.com/400x300?text=Produk+ELF'">
-                    </div>
+            extraData.forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'card';
+                div.innerHTML = `
+                    <div class="card-photo"><img src="${p.foto}"></div>
                     <div class="card-name">${p.nama}</div>
                     <button class="btn-nota" onclick="kirimKeDashboard('${p.nama}')">PROSES NOTA</button>
                 `;
-                container.appendChild(card);
+                container.appendChild(div);
             });
         }
 
-        // Fungsi untuk mengarahkan ke dashboard dengan parameter nama produk
         function kirimKeDashboard(nama) {
             window.location.href = `Dashboard.html?produk=${encodeURIComponent(nama)}`;
         }
 
-        // Jalankan fungsi saat halaman selesai dimuat
-        window.onload = loadKatalog;
+        window.onload = loadExtraItems;
     </script>
 </body>
 </html>
