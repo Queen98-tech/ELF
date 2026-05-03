@@ -3,143 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ELF METAL ART DECORATIVE | Spesialis Laser Cutting & Fabrikasi Logam</title>
+  <title>ELF METAL ART DECORATIVE</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --red: #cc1c1c; --red-dark: #a81515; --text: #222222; --text-light: #555555; --border: #e0e0e0; }
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--text); background: #fff; }
-
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: #fff; z-index: 100; }
-    .logo { font-size: 1rem; font-weight: 800; color: var(--red); letter-spacing: 1px; text-transform: uppercase; }
-
-    #home { padding: 30px 20px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
-    .hero-image { width: 100%; border-radius: 12px; overflow: hidden; max-height: 240px; }
-    .hero-image img { width: 100%; height: 240px; object-fit: cover; border-radius: 12px; }
-    .hero-content { width: 100%; text-align: center; }
-    .hero-content h1 { font-size: 1.8rem; font-weight: 800; color: var(--red); line-height: 1.2; margin-bottom: 10px; }
-    .hero-content .tagline { font-style: italic; color: var(--text-light); font-size: 0.9rem; margin-bottom: 12px; }
-    .hero-content p { font-size: 0.9rem; line-height: 1.7; margin-bottom: 20px; }
-    .btn-pesan { display: inline-block; background: var(--red); color: #fff; padding: 12px 28px; border-radius: 6px; font-size: 0.95rem; font-weight: 700; text-decoration: none; }
-    .btn-pesan:hover { background: var(--red-dark); }
-
-    .welcome-banner { background: var(--red); color: #fff; text-align: center; padding: 18px 20px; }
-    .welcome-banner h2 { font-size: 1rem; font-weight: 700; }
-    .banner-arrow { width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent; border-top: 16px solid var(--red); margin: 0 auto; }
-
-    #about { padding: 32px 20px; }
-    .about-grid { display: flex; flex-direction: column; gap: 20px; }
-    .about-image { width: 100%; height: 200px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
-    .about-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
-    .about-text h2 { font-size: 1.5rem; font-weight: 800; color: var(--red); margin-bottom: 8px; }
-    .about-text .underline { width: 40px; height: 3px; background: var(--red); margin-bottom: 14px; }
-    .about-text p { font-size: 0.9rem; line-height: 1.8; }
-
-    #layanan { padding: 24px 20px 60px; }
-    #layanan h2 { text-align: center; font-size: 1.3rem; font-weight: 800; color: var(--red); margin-bottom: 20px; }
-    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .service-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #fff; transition: 0.3s; }
-    .service-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-    .service-card .card-img { width: 100%; height: 130px; overflow: hidden; border-bottom: 1px solid var(--border); }
-    .service-card .card-img img { width: 100%; height: 100%; object-fit: cover; }
-    .service-card .card-label { text-align: center; padding: 10px 6px; font-size: 0.8rem; font-weight: 700; }
-
-    @media (min-width: 768px) {
-      nav { padding: 18px 60px; }
-      .logo { font-size: 1.3rem; }
-      #home { flex-direction: row; padding: 80px 60px; min-height: 70vh; gap: 60px; }
-      .hero-image { max-width: 520px; height: 420px; max-height: none; }
-      .hero-image img { height: 420px; }
-      .hero-content { text-align: left; max-width: 520px; }
-      .hero-content h1 { font-size: 3.2rem; }
-      .welcome-banner { padding: 28px 60px; }
-      .welcome-banner h2 { font-size: 1.4rem; }
-      #about { padding: 80px 60px; }
-      .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-      .about-image { height: 320px; }
-      .about-text h2 { font-size: 2rem; }
-      #layanan { padding: 60px 60px 80px; }
-      #layanan h2 { font-size: 1.8rem; margin-bottom: 40px; }
-      .services-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 30px; }
-      .service-card .card-img { height: 240px; }
-      .service-card .card-label { font-size: 1rem; padding: 18px; }
+    :root { --red: #cc1c1c; --border: #e0e0e0; }
+    body { font-family: 'Segoe UI', sans-serif; color: #222; }
+    nav { padding: 15px 20px; border-bottom: 1px solid var(--border); background: #fff; }
+    .logo { font-weight: 800; color: var(--red); text-transform: uppercase; }
+    
+    #layanan { padding: 40px 20px; max-width: 1200px; margin: auto; }
+    #layanan h2 { text-align: center; color: var(--red); margin-bottom: 30px; }
+    
+    .services-grid { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+        gap: 20px; 
     }
-
-    .wa-float { position: fixed; bottom: 24px; right: 20px; z-index: 999; display: flex; align-items: center; gap: 10px; text-decoration: none; animation: wa-bounce 2.5s infinite; }
-    .wa-icon { width: 52px; height: 52px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(37,211,102,0.5); }
-    .wa-icon svg { width: 28px; height: 28px; fill: #fff; }
-    @keyframes wa-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    
+    .service-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #fff; }
+    .card-img { width: 100%; height: 180px; overflow: hidden; }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .card-label { text-align: center; padding: 15px; font-weight: 700; }
   </style>
 </head>
 <body>
   <nav><div class="logo">ELF METAL ART</div></nav>
 
-  <section id="home">
-    <div class="hero-image"><img src="Hero.jpeg" alt="ELF Metal Art" /></div>
-    <div class="hero-content">
-      <h1>ELF Metal Art Decorative</h1>
-      <p class="tagline">"Spesialis Laser Cutting &amp; Fabrikasi Logam Custom"</p>
-      <p>Kami menerima berbagai macam pesanan mulai dari pagar minimalis, balkon artistik, railing tangga, kanopi, hingga partisi dinding.</p>
-      <a href="https://wa.me/6281333366554?text=Halo%2C%20saya%20ingin%20pesan%20produk%20ELF%20Metal%20Art%20Decorative" class="btn-pesan">Pesan Sekarang</a>
-    </div>
-  </section>
-
-  <div class="welcome-banner"><h2>Selamat Datang di Elf Metal Art Decorative Website</h2></div>
-  <div style="text-align:center;"><div class="banner-arrow"></div></div>
-
-  <section id="about">
-    <div class="about-grid">
-      <div class="about-image"><img src="About-us.jpeg" alt="Foto Bengkel" /></div>
-      <div class="about-text">
-        <h2>About Us</h2>
-        <div class="underline"></div>
-        <p><strong>ELF Metal Art Decorative</strong> adalah bengkel fabrikasi logam profesional yang berpengalaman dalam menghadirkan produk logam berkualitas tinggi.</p>
-      </div>
-    </div>
-  </section>
-
   <section id="layanan">
     <h2>Katalog Layanan Kami</h2>
-    <!-- Container ini tempat munculnya barang dari Dashboard -->
     <div class="services-grid" id="produk-container">
-      <!-- Barang statis tetap ada -->
-      <div class="service-card"><div class="card-img"><img src="Pagar (1).jpg" alt="Pagar" /></div><div class="card-label">Pagar</div></div>
-      <div class="service-card"><div class="card-img"><img src="Kanopi.jpg" alt="Kanopi" /></div><div class="card-label">Kanopi</div></div>
-      <div class="service-card"><div class="card-img"><img src="Ralling Tangga.jpg" alt="Ralling Tangga" /></div><div class="card-label">Ralling Tangga</div></div>
-      <div class="service-card"><div class="card-img"><img src="Balcon Railing.webp" alt="Balkon" /></div><div class="card-label">Balkon</div></div>
-      <div class="service-card"><div class="card-img"><img src="lampu Tenaga Surya.jpg" alt="Lampu Tenaga Surya" /></div><div class="card-label">Lampu Tenaga Surya</div></div>
-      <div class="service-card"><div class="card-img"><img src="tralis pintu.jpg" alt="Teralis" /></div><div class="card-label">Teralis</div></div>
-      <div class="service-card"><div class="card-img"><img src="Pagar laser cutting.jpg" alt="Pagar Plat Cutting" /></div><div class="card-label">Pagar Plat Cutting</div></div>
+      <!-- Barang statis (yang lama) -->
+      <div class="service-card"><div class="card-img"><img src="Pagar (1).jpg" alt="Pagar"></div><div class="card-label">Pagar</div></div>
+      <div class="service-card"><div class="card-img"><img src="Kanopi.jpg" alt="Kanopi"></div><div class="card-label">Kanopi</div></div>
     </div>
   </section>
 
-  <a class="wa-float" href="https://wa.me/6281333366554" target="_blank">
-    <div class="wa-icon">
-      <svg viewBox="0 0 32 32"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.469 2.027 7.773L0 32l8.437-2.01A15.94 15.94 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.27 13.27 0 0 1-6.77-1.854l-.485-.288-5.007 1.194 1.217-4.874-.316-.5A13.27 13.27 0 0 1 2.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333z"/></svg>
-    </div>
-  </a>
-
-  <!-- SCRIPT UNTUK MENGAMBIL DATA DARI DASHBOARD -->
   <script>
-    function muatProduk() {
+    function loadKatalog() {
       const container = document.getElementById('produk-container');
-      // Pastikan nama key 'produkList' sama dengan yang ada di Dashboard.html
+      // Kuncinya harus SAMA: 'produkList'
       const dataProduk = JSON.parse(localStorage.getItem('produkList')) || [];
 
-      dataProduk.forEach(produk => {
-        const htmlBaru = `
-          <div class="service-card">
-            <div class="card-img">
-              <img src="${produk.foto}" alt="${produk.nama}">
-            </div>
-            <div class="card-label">${produk.nama}</div>
-          </div>
+      dataProduk.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'service-card';
+        div.innerHTML = `
+          <div class="card-img"><img src="${p.foto}"></div>
+          <div class="card-label">${p.nama}</div>
         `;
-        container.innerHTML += htmlBaru;
+        container.appendChild(div);
       });
     }
-
-    // Jalankan fungsi saat halaman dibuka
-    window.onload = muatProduk;
+    window.onload = loadKatalog;
   </script>
 </body>
 </html>
