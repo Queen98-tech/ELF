@@ -20,7 +20,6 @@
         .nota-section { margin-top: 50px; padding-top: 20px; border-top: 5px solid var(--red); }
         .nota-box { display: none; margin-top: 20px; padding: 30px; border: 2px dashed #333; background: #fff; box-sizing: border-box; }
         
-        /* CSS KHUSUS PRINT */
         @media print {
             body * { visibility: hidden !important; }
             #area-nota, #area-nota * { visibility: visible !important; }
@@ -66,7 +65,6 @@
         <input type="text" id="nota-harga" style="flex:2" placeholder="Harga (Rp)" oninput="formatRupiah(this)">
         <input type="number" id="nota-qty" style="flex:1" value="1">
     </div>
-    <!-- KLIK INI LANGSUNG PRINT -->
     <button class="btn" style="background: #28a745;" onclick="prosesDanPrint()">+ Masukkan ke Nota & Cetak</button>
 
     <div id="area-nota" class="nota-box">
@@ -104,7 +102,7 @@
         <div style="margin-top: 20px; text-align: right; padding-right: 10px;">
             <h2 style="margin: 0; color: #000;">TOTAL: Rp <span id="p-total">0</span></h2>
         </div>
-        <!-- TANDA TANGAN SUDAH DIHAPUS -->
+        <!-- Area tanda tangan dihapus total -->
     </div>
   </div>
 </div>
@@ -164,7 +162,6 @@
     
     document.getElementById('area-nota').style.display = "block";
     
-    // Auto-print setelah delay singkat biar UI ke-update dulu
     setTimeout(() => {
         window.print();
     }, 500);
