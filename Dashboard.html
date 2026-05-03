@@ -20,7 +20,7 @@
         .nota-section { margin-top: 50px; padding-top: 20px; border-top: 5px solid var(--red); }
         .nota-box { display: none; margin-top: 20px; padding: 30px; border: 2px dashed #333; background: #fff; box-sizing: border-box; }
         
-        /* CSS KHUSUS PRINT FIX */
+        /* CSS KHUSUS PRINT */
         @media print {
             body * { visibility: hidden !important; }
             #area-nota, #area-nota * { visibility: visible !important; }
@@ -31,9 +31,9 @@
                 width: 100% !important;
                 display: block !important;
                 border: none !important;
-                padding: 20px !important;
+                padding: 10px !important;
             }
-            @page { size: auto; margin: 1.5cm; }
+            @page { size: auto; margin: 1cm; }
         }
     </style>
 </head>
@@ -66,9 +66,9 @@
         <input type="text" id="nota-harga" style="flex:2" placeholder="Harga (Rp)" oninput="formatRupiah(this)">
         <input type="number" id="nota-qty" style="flex:1" value="1">
     </div>
-    <button class="btn" style="background: #28a745;" onclick="prosesKeNota()">+ Masukkan ke Nota</button>
+    <!-- KLIK INI LANGSUNG PRINT -->
+    <button class="btn" style="background: #28a745;" onclick="prosesDanPrint()">+ Masukkan ke Nota & Cetak</button>
 
-    <!-- AREA NOTA -->
     <div id="area-nota" class="nota-box">
         <div style="text-align: center; border-bottom: 3px solid #000; padding-bottom: 10px; margin-bottom: 20px;">
             <h1 style="color: #cc1c1c; margin: 0; font-size: 28px;">ELF METAL ART</h1>
@@ -76,7 +76,6 @@
             <p style="font-size: 12px; margin: 0;">WhatsApp: 0822-xxxx-xxxx</p>
         </div>
         
-        <!-- TABLE HEADER NOTA (BIAR GAK KEPOTONG) -->
         <table style="width: 100%; border: none; margin-bottom: 20px;">
             <tr>
                 <td style="border:none; padding:0; width: 60%;">
@@ -105,22 +104,8 @@
         <div style="margin-top: 20px; text-align: right; padding-right: 10px;">
             <h2 style="margin: 0; color: #000;">TOTAL: Rp <span id="p-total">0</span></h2>
         </div>
-
-        <div style="margin-top: 50px; display: flex; justify-content: space-between;">
-            <div style="text-align: center; width: 200px;">
-                <p>Hormat Kami,</p>
-                <br><br><br>
-                <p>( ELF METAL ART )</p>
-            </div>
-            <div style="text-align: center; width: 200px;">
-                <p>Penerima,</p>
-                <br><br><br>
-                <p>( ........................ )</p>
-            </div>
-        </div>
+        <!-- TANDA TANGAN SUDAH DIHAPUS -->
     </div>
-
-    <button class="btn" id="btn-cetak" style="display:none; background: #333;" onclick="window.print()">CETAK NOTA SEKARANG</button>
   </div>
 </div>
 
@@ -157,7 +142,7 @@
 
   function hapus(i) { if(confirm("Hapus?")) { barang.splice(i, 1); tampilkan(); } }
 
-  function prosesKeNota() {
+  function prosesDanPrint() {
     const pel = document.getElementById('nota-pelanggan').value;
     const prod = document.getElementById('nota-produk').value;
     const hrgRaw = document.getElementById('nota-harga').value;
@@ -178,7 +163,11 @@
     document.getElementById('p-total').innerText = total.toLocaleString('id-ID');
     
     document.getElementById('area-nota').style.display = "block";
-    document.getElementById('btn-cetak').style.display = "block";
+    
+    // Auto-print setelah delay singkat biar UI ke-update dulu
+    setTimeout(() => {
+        window.print();
+    }, 500);
   }
 </script>
 </body>
