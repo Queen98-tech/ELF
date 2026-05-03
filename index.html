@@ -6,116 +6,158 @@
   <title>ELF METAL ART DECORATIVE</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --red: #cc1c1c; --border: #e0e0e0; }
-    body { font-family: 'Segoe UI', sans-serif; color: #222; background: #fff; }
+    :root { --red: #cc1c1c; --red-dark: #a81515; --text: #222; --border: #e0e0e0; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--text); background: #fff; }
 
-    /* CSS Navigasi & Layout */
-    nav { padding: 14px 20px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: #fff; z-index: 100; }
-    .logo { font-weight: 800; color: var(--red); text-transform: uppercase; }
+    /* Navigasi */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: #fff; z-index: 100; }
+    .logo { font-size: 1rem; font-weight: 800; color: var(--red); letter-spacing: 1px; text-transform: uppercase; }
 
+    /* Hero Section (Bagian Atas) */
+    #home { padding: 30px 20px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+    .hero-image { width: 100%; border-radius: 12px; overflow: hidden; max-height: 240px; }
+    .hero-image img { width: 100%; height: 240px; object-fit: cover; }
+    .hero-content { width: 100%; text-align: center; }
+    .hero-content h1 { font-size: 1.8rem; font-weight: 800; color: var(--red); line-height: 1.2; margin-bottom: 10px; }
+    .hero-content p { font-size: 0.9rem; line-height: 1.7; margin-bottom: 20px; color: var(--text-light); }
+    .btn-pesan { display: inline-block; background: var(--red); color: #fff; padding: 12px 28px; border-radius: 6px; font-size: 0.95rem; font-weight: 700; text-decoration: none; }
+
+    /* Welcome Banner */
+    .welcome-banner { background: var(--red); color: #fff; text-align: center; padding: 18px 20px; margin-top: 20px; }
+    .welcome-banner h2 { font-size: 1rem; font-weight: 700; }
+
+    /* About Us */
+    #about { padding: 40px 20px; max-width: 1200px; margin: auto; }
+    .about-grid { display: flex; flex-direction: column; gap: 20px; }
+    .about-image { width: 100%; height: 200px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+    .about-image img { width: 100%; height: 100%; object-fit: cover; }
+    .about-text h2 { font-size: 1.5rem; font-weight: 800; color: var(--red); margin-bottom: 8px; }
+    .about-text p { font-size: 0.9rem; line-height: 1.8; }
+
+    /* Katalog Layanan */
     #layanan { padding: 40px 20px; max-width: 1200px; margin: auto; }
-    #layanan h2 { text-align: center; color: var(--red); margin-bottom: 30px; }
-
-    /* Grid Katalog */
+    #layanan h2 { text-align: center; font-size: 1.5rem; font-weight: 800; color: var(--red); margin-bottom: 30px; }
     .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-    .service-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #fff; display: flex; flex-direction: column; transition: 0.3s; }
+    .service-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
     .card-img { width: 100%; height: 150px; overflow: hidden; border-bottom: 1px solid var(--border); }
     .card-img img { width: 100%; height: 100%; object-fit: cover; }
-    .card-label { text-align: center; padding: 12px; font-weight: 700; flex-grow: 1; }
+    .card-label { text-align: center; padding: 10px; font-weight: 700; font-size: 0.85rem; }
     
-    /* Tombol Cetak */
-    .btn-print { background: var(--red); color: #fff; border: none; padding: 8px; width: 100%; cursor: pointer; font-size: 0.8rem; font-weight: bold; border-top: 1px solid var(--border); }
-    .btn-print:hover { background: #a81515; }
+    /* Tombol Print */
+    .btn-print { background: #f8f8f8; border: none; padding: 8px; font-size: 0.7rem; font-weight: bold; cursor: pointer; color: var(--red); border-top: 1px solid var(--border); }
+    .btn-print:hover { background: #eee; }
 
+    /* Responsive untuk Laptop */
     @media (min-width: 768px) {
-      .services-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
-      .card-img { height: 200px; }
+      #home { flex-direction: row; padding: 60px; gap: 60px; }
+      .hero-image { max-width: 50%; height: 400px; max-height: none; }
+      .hero-image img { height: 400px; }
+      .hero-content { text-align: left; }
+      .hero-content h1 { font-size: 3rem; }
+      .about-grid { flex-direction: row; align-items: center; }
+      .about-image { flex: 1; height: 350px; }
+      .about-text { flex: 1; }
+      .services-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
     }
 
-    /* CSS KHUSUS PRINT (Ini yang bikin nota rapi) */
+    /* Nota Print Styles */
+    #nota-print { display: none; }
     @media print {
       body * { visibility: hidden; }
       #nota-print, #nota-print * { visibility: visible; }
-      #nota-print { position: absolute; left: 0; top: 0; width: 100%; padding: 20px; border: 2px solid #000; }
-      .btn-print, nav, h2 { display: none !important; }
+      #nota-print { position: absolute; left: 0; top: 0; width: 100%; padding: 40px; border: 1px solid #000; display: block !important; }
     }
-
-    /* Desain Nota Tersembunyi */
-    #nota-print { display: none; }
-    .nota-header { border-bottom: 2px solid #000; margin-bottom: 20px; padding-bottom: 10px; text-align: center; }
-    .nota-title { font-size: 24px; font-weight: bold; color: #cc1c1c; }
-    .nota-body { line-height: 1.6; }
-    .info-row { display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px dashed #ccc; }
   </style>
 </head>
 <body>
 
   <nav><div class="logo">ELF METAL ART</div></nav>
 
+  <!-- Hero Section (Balikin yang Hilang) -->
+  <section id="home">
+    <div class="hero-image"><img src="Hero.jpeg" alt="ELF Metal Art"></div>
+    <div class="hero-content">
+      <h1>ELF Metal Art Decorative</h1>
+      <p>Spesialis Laser Cutting & Fabrikasi Logam Custom. Kami siap mewujudkan dekorasi rumah impian Anda dengan kualitas terbaik.</p>
+      <a href="https://wa.me/6281333366554" class="btn-pesan">Konsultasi Gratis</a>
+    </div>
+  </section>
+
+  <div class="welcome-banner"><h2>Selamat Datang di Elf Metal Art Decorative</h2></div>
+
+  <!-- About Us Section -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-image"><img src="About-us.jpeg" alt="Workshop Kami"></div>
+      <div class="about-text">
+        <h2>About Us</h2>
+        <p><strong>ELF Metal Art Decorative</strong> adalah bengkel fabrikasi logam profesional di Probolinggo. Kami ahli dalam pembuatan pagar, kanopi, balkon, dan dekorasi artistik lainnya menggunakan teknologi laser cutting terkini.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Katalog Section -->
   <section id="layanan">
     <h2>Katalog Layanan Kami</h2>
     <div class="services-grid" id="produk-container">
-      
-      <!-- DAFTAR MANUAL -->
+      <!-- Item Manual -->
       <div class="service-card">
         <div class="card-img"><img src="Pagar (1).jpg" alt="Pagar"></div>
         <div class="card-label">Pagar</div>
         <button class="btn-print" onclick="cetakNota('Pagar')">CETAK NOTA</button>
       </div>
-
       <div class="service-card">
         <div class="card-img"><img src="Kanopi.jpg" alt="Kanopi"></div>
         <div class="card-label">Kanopi</div>
         <button class="btn-print" onclick="cetakNota('Kanopi')">CETAK NOTA</button>
       </div>
-
       <div class="service-card">
-        <div class="card-img"><img src="Ralling Tangga.jpg" alt="Ralling Tangga"></div>
-        <div class="card-label">Ralling Tangga</div>
-        <button class="btn-print" onclick="cetakNota('Ralling Tangga')">CETAK NOTA</button>
+        <div class="card-img"><img src="Ralling Tangga.jpg" alt="Railing"></div>
+        <div class="card-label">Railing Tangga</div>
+        <button class="btn-print" onclick="cetakNota('Railing Tangga')">CETAK NOTA</button>
       </div>
-
       <div class="service-card">
         <div class="card-img"><img src="Balcon Railing.webp" alt="Balkon"></div>
         <div class="card-label">Balkon</div>
         <button class="btn-print" onclick="cetakNota('Balkon')">CETAK NOTA</button>
       </div>
-
+      <div class="service-card">
+        <div class="card-img"><img src="lampu Tenaga Surya.jpg" alt="Lampu"></div>
+        <div class="card-label">Lampu Tenaga Surya</div>
+        <button class="btn-print" onclick="cetakNota('Lampu Tenaga Surya')">CETAK NOTA</button>
+      </div>
+      <div class="service-card">
+        <div class="card-img"><img src="tralis pintu.jpg" alt="Teralis"></div>
+        <div class="card-label">Teralis</div>
+        <button class="btn-print" onclick="cetakNota('Teralis')">CETAK NOTA</button>
+      </div>
     </div>
   </section>
 
-  <!-- TEMPLATE NOTA YANG AKAN DIPRINT -->
+  <!-- Template Nota (Hidden) -->
   <div id="nota-print">
-    <div class="nota-header">
-      <div class="nota-title">ELF METAL ART DECORATIVE</div>
-      <p>Spesialis Laser Cutting & Fabrikasi Logam</p>
-      <p>Probolinggo, Jawa Timur | WA: 0813-3336-6554</p>
-    </div>
-    <div class="nota-body">
-      <h3 style="text-align:center; margin-bottom: 20px;">SURAT PEMESANAN BARANG</h3>
-      <div class="info-row"><span>Nomor Nota:</span> <span id="nota-id"></span></div>
-      <div class="info-row"><span>Tanggal:</span> <span id="nota-tgl"></span></div>
-      <div class="info-row"><span>Nama Produk:</span> <span id="nota-nama"></span></div>
-      <div class="info-row"><span>Status:</span> <span>Menunggu Survey / DP</span></div>
-      <br><br>
-      <div style="display:flex; justify-content: space-around; margin-top: 50px;">
-        <div style="text-align:center;">Hormat Kami,<br><br><br>( ELF METAL ART )</div>
-        <div style="text-align:center;">Pemesan,<br><br><br>( .................... )</div>
-      </div>
-    </div>
+    <h1 style="color:red; text-align:center;">ELF METAL ART</h1>
+    <hr>
+    <p style="text-align:center;">Nota Pemesanan Barang</p>
+    <br>
+    <p>ID Nota: <span id="n-id"></span></p>
+    <p>Tanggal: <span id="n-tgl"></span></p>
+    <p>Produk: <strong><span id="n-nama"></span></strong></p>
+    <br><br>
+    <p>Tanda Tangan,</p>
+    <br><br>
+    <p>( ELF METAL ART )</p>
   </div>
 
   <script>
-    // Fungsi load barang dari Dashboard
     function loadKatalogOtomatis() {
       const container = document.getElementById('produk-container');
       const dataProduk = JSON.parse(localStorage.getItem('produkList')) || [];
-
       dataProduk.forEach(p => {
         const div = document.createElement('div');
         div.className = 'service-card';
         div.innerHTML = `
-          <div class="card-img"><img src="${p.foto}" alt="${p.nama}"></div>
+          <div class="card-img"><img src="${p.foto}"></div>
           <div class="card-label">${p.nama}</div>
           <button class="btn-print" onclick="cetakNota('${p.nama}')">CETAK NOTA</button>
         `;
@@ -123,24 +165,14 @@
       });
     }
 
-    // FUNGSI CETAK NOTA
-    function cetakNota(namaProduk) {
-      const tgl = new Date().toLocaleDateString('id-ID');
-      const notaId = "ELF-" + Math.floor(Math.random() * 10000);
-
-      // Isi data ke template nota
-      document.getElementById('nota-nama').innerText = namaProduk;
-      document.getElementById('nota-tgl').innerText = tgl;
-      document.getElementById('nota-id').innerText = notaId;
-
-      // Munculkan sebentar untuk diprint
-      document.getElementById('nota-print').style.display = 'block';
+    function cetakNota(nama) {
+      document.getElementById('n-nama').innerText = nama;
+      document.getElementById('n-tgl').innerText = new Date().toLocaleDateString();
+      document.getElementById('n-id').innerText = "TRX-" + Math.floor(Math.random()*1000);
       window.print();
-      document.getElementById('nota-print').style.display = 'none';
     }
 
     window.onload = loadKatalogOtomatis;
   </script>
-
 </body>
 </html>
