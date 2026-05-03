@@ -6,166 +6,114 @@
     <title>Admin Dashboard | ELF METAL ART</title>
     <style>
         :root { --red: #cc1c1c; --bg: #f4f4f4; }
-        body { font-family: sans-serif; background: var(--bg); padding: 20px; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 20px; }
         .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         h2 { color: var(--red); border-bottom: 2px solid var(--red); padding-bottom: 10px; margin-top: 20px; }
         input, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; display: block; box-sizing: border-box; }
         .btn { background: var(--red); color: white; border: none; padding: 12px 20px; cursor: pointer; font-weight: bold; width: 100%; border-radius: 4px; margin-top: 10px; }
-        table { width: 100%; margin-top: 10px; border-collapse: collapse; }
+        table { width: 100%; margin-top: 20px; border-collapse: collapse; }
         th, td { border-bottom: 1px solid #ddd; padding: 12px; text-align: left; }
         .btn-del { background: #ff4444; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
         .img-preview { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
-        label { font-weight: bold; font-size: 0.9rem; color: #555; }
-
-        .nota-section { margin-top: 50px; padding-top: 20px; border-top: 5px solid var(--red); }
-        .nota-box { display: none; margin-top: 20px; padding: 30px; border: 2px dashed #333; background: #fff; box-sizing: border-box; }
         
+        .nota-box { display: none; margin-top: 20px; padding: 30px; border: 2px dashed #333; background: #fff; }
+
         @media print {
             body * { visibility: hidden !important; }
             #area-nota, #area-nota * { visibility: visible !important; }
-            #area-nota {
-                position: absolute !important;
-                left: 0 !important;
-                top: 0 !important;
-                width: 100% !important;
-                display: block !important;
-                border: none !important;
-                padding: 10px !important;
-            }
-            @page { size: auto; margin: 1cm; }
+            #area-nota { position: absolute; left: 0; top: 0; width: 100%; display: block !important; border: none; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-  <div style="margin-bottom: 15px;">
-    <a href="index.html" style="text-decoration: none; color: #555; font-size: 0.8rem;">← Kembali ke Katalog</a>
-  </div>
-
-  <h2>🛠 Dashboard Admin ELF Metal Art</h2>
-  
-  <div style="margin-bottom: 30px;">
-    <label>Nama Barang:</label>
-    <input type="text" id="nama" placeholder="Contoh: Pagar Laser Cutting">
-    <label>Pilih Foto:</label>
-    <input type="file" id="fotoInput" accept="image/*">
-    <button class="btn" onclick="tambah()">Tambah Barang Ke Katalog</button>
-  </div>
-
-  <table>
-    <tbody id="list-barang"></tbody>
-  </table>
-
-  <div class="nota-section">
-    <h2>📄 Buat Nota Pesanan</h2>
-    <input type="text" id="nota-pelanggan" placeholder="Nama Pembeli">
-    <input type="text" id="nota-produk" placeholder="Nama Produk">
-    <div style="display: flex; gap: 10px;">
-        <input type="text" id="nota-harga" style="flex:2" placeholder="Harga (Rp)" oninput="formatRupiah(this)">
-        <input type="number" id="nota-qty" style="flex:1" value="1">
+    <div style="margin-bottom: 15px;"><a href="index.html" style="text-decoration: none; color: #555;">← Kembali ke Katalog</a></div>
+    <h2>🛠 Dashboard Admin</h2>
+    
+    <div style="margin-bottom: 30px;">
+        <label>Nama Barang Baru:</label>
+        <input type="text" id="nama" placeholder="Nama Produk">
+        <label>Foto Produk:</label>
+        <input type="file" id="fotoInput" accept="image/*">
+        <button class="btn" onclick="tambah()">Tambah ke Katalog Utama</button>
     </div>
-    <button class="btn" style="background: #28a745;" onclick="prosesDanPrint()">+ Masukkan ke Nota & Cetak</button>
+
+    <table>
+        <tbody id="list-barang"></tbody>
+    </table>
+
+    <div style="margin-top: 50px; border-top: 5px solid var(--red); padding-top: 20px;">
+        <h2>📄 Buat Nota</h2>
+        <input type="text" id="nota-pelanggan" placeholder="Nama Pembeli">
+        <input type="text" id="nota-produk" placeholder="Nama Produk">
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="nota-harga" style="flex:2" placeholder="Harga" oninput="formatRupiah(this)">
+            <input type="number" id="nota-qty" style="flex:1" value="1">
+        </div>
+        <button class="btn" style="background: #28a745;" onclick="prosesDanPrint()">Cetak Nota</button>
+    </div>
 
     <div id="area-nota" class="nota-box">
         <div style="text-align: center; border-bottom: 3px solid #000; padding-bottom: 10px; margin-bottom: 20px;">
-            <h1 style="color: #cc1c1c; margin: 0; font-size: 28px;">ELF METAL ART</h1>
-            <p style="margin: 5px 0; font-weight: bold;">Spesialis Laser Cutting & Fabrikasi Logam - Probolinggo</p>
-            <p style="font-size: 12px; margin: 0;">WhatsApp: 0822-xxxx-xxxx</p>
+            <h1 style="color: #cc1c1c; margin: 0;">ELF METAL ART</h1>
+            <p>Probolinggo - Spesialis Laser Cutting</p>
         </div>
-        
-        <table style="width: 100%; border: none; margin-bottom: 20px;">
-            <tr>
-                <td style="border:none; padding:0; width: 60%;">
-                    <p style="margin: 0;"><strong>Kepada Yth:</strong></p>
-                    <p style="margin: 5px 0; font-size: 18px;" id="p-nama">-</p>
-                </td>
-                <td style="border:none; padding:0; text-align: right; width: 40%;">
-                    <p style="margin: 0;"><strong>Tanggal:</strong></p>
-                    <p style="margin: 5px 0; font-size: 18px;" id="p-tgl">-</p>
-                </td>
-            </tr>
-        </table>
-
-        <table style="width: 100%; border: 2px solid #000; border-collapse: collapse;">
-            <thead>
-                <tr style="background: #f0f0f0;">
-                    <th style="border: 2px solid #000; padding: 10px;">Deskripsi Item</th>
-                    <th style="border: 2px solid #000; padding: 10px;">Harga</th>
-                    <th style="border: 2px solid #000; padding: 10px; text-align: center;">Qty</th>
-                    <th style="border: 2px solid #000; padding: 10px;">Total</th>
-                </tr>
-            </thead>
+        <p>Kepada: <span id="p-nama"></span></p>
+        <p>Tanggal: <span id="p-tgl"></span></p>
+        <table style="width: 100%; border: 2px solid #000; margin-top: 10px;">
+            <thead><tr style="background:#f0f0f0;"><th>Item</th><th>Harga</th><th>Qty</th><th>Total</th></tr></thead>
             <tbody id="p-list"></tbody>
         </table>
-        
-        <div style="margin-top: 20px; text-align: right; padding-right: 10px;">
-            <h2 style="margin: 0; color: #000;">TOTAL: Rp <span id="p-total">0</span></h2>
-        </div>
-        <!-- Area tanda tangan dihapus total -->
+        <h3 style="text-align: right; margin-top: 10px;">TOTAL: Rp <span id="p-total"></span></h3>
     </div>
-  </div>
 </div>
 
 <script>
-  let barang = JSON.parse(localStorage.getItem('katalog_elf')) || [];
+    let barang = JSON.parse(localStorage.getItem('katalog_elf')) || [];
 
-  function formatRupiah(input) {
-    let v = input.value.replace(/[^0-9]/g, "");
-    if (v) input.value = new Intl.NumberFormat('id-ID').format(v);
-  }
-
-  window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('p-tgl').innerText = new Date().toLocaleDateString('id-ID');
-    tampilkan();
-  });
-
-  function tampilkan() {
-    const list = document.getElementById('list-barang');
-    list.innerHTML = '';
-    barang.forEach((item, index) => {
-      list.innerHTML += `<tr><td><img src="${item.foto}" class="img-preview"></td><td><strong>${item.nama}</strong></td><td><button class="btn-del" onclick="hapus(${index})">Hapus</button></td></tr>`;
-    });
-    localStorage.setItem('katalog_elf', JSON.stringify(barang));
-  }
-
-  function tambah() {
-    const n = document.getElementById('nama').value, f = document.getElementById('fotoInput').files[0];
-    if (n && f) {
-      const r = new FileReader();
-      r.onload = (e) => { barang.push({ nama:n, foto:e.target.result }); tampilkan(); };
-      r.readAsDataURL(f);
+    function formatRupiah(i) {
+        let v = i.value.replace(/[^0-9]/g, "");
+        if (v) i.value = new Intl.NumberFormat('id-ID').format(v);
     }
-  }
 
-  function hapus(i) { if(confirm("Hapus?")) { barang.splice(i, 1); tampilkan(); } }
+    window.onload = () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('produk')) document.getElementById('nota-produk').value = urlParams.get('produk');
+        document.getElementById('p-tgl').innerText = new Date().toLocaleDateString('id-ID');
+        tampilkan();
+    };
 
-  function prosesDanPrint() {
-    const pel = document.getElementById('nota-pelanggan').value;
-    const prod = document.getElementById('nota-produk').value;
-    const hrgRaw = document.getElementById('nota-harga').value;
-    const qty = document.getElementById('nota-qty').value;
+    function tampilkan() {
+        const list = document.getElementById('list-barang');
+        list.innerHTML = '';
+        barang.forEach((item, index) => {
+            list.innerHTML += `<tr><td><img src="${item.foto}" class="img-preview"></td><td>${item.nama}</td><td><button class="btn-del" onclick="hapus(${index})">Hapus</button></td></tr>`;
+        });
+        localStorage.setItem('katalog_elf', JSON.stringify(barang));
+    }
 
-    if(!pel || !prod || !hrgRaw) return alert("Data belum lengkap!");
+    function tambah() {
+        const n = document.getElementById('nama').value, f = document.getElementById('fotoInput').files[0];
+        if (n && f) {
+            const r = new FileReader();
+            r.onload = (e) => { barang.push({ nama: n, foto: e.target.result }); tampilkan(); };
+            r.readAsDataURL(f);
+        }
+    }
 
-    const hrg = parseInt(hrgRaw.replace(/\./g, ""));
-    const total = hrg * qty;
-    
-    document.getElementById('p-nama').innerText = pel;
-    document.getElementById('p-list').innerHTML = `<tr>
-        <td style="border: 2px solid #000; padding: 10px;">${prod}</td>
-        <td style="border: 2px solid #000; padding: 10px;">${hrg.toLocaleString('id-ID')}</td>
-        <td style="border: 2px solid #000; padding: 10px; text-align: center;">${qty}</td>
-        <td style="border: 2px solid #000; padding: 10px;">${total.toLocaleString('id-ID')}</td>
-    </tr>`;
-    document.getElementById('p-total').innerText = total.toLocaleString('id-ID');
-    
-    document.getElementById('area-nota').style.display = "block";
-    
-    setTimeout(() => {
-        window.print();
-    }, 500);
-  }
+    function hapus(i) { if(confirm("Hapus?")) { barang.splice(i, 1); tampilkan(); } }
+
+    function prosesDanPrint() {
+        const pel = document.getElementById('nota-pelanggan').value, prod = document.getElementById('nota-produk').value, hrgRaw = document.getElementById('nota-harga').value, qty = document.getElementById('nota-qty').value;
+        if(!pel || !prod || !hrgRaw) return alert("Lengkapi data!");
+        const hrg = parseInt(hrgRaw.replace(/\./g, "")), total = hrg * qty;
+        document.getElementById('p-nama').innerText = pel;
+        document.getElementById('p-list').innerHTML = `<tr><td>${prod}</td><td>${hrg.toLocaleString('id-ID')}</td><td>${qty}</td><td>${total.toLocaleString('id-ID')}</td></tr>`;
+        document.getElementById('p-total').innerText = total.toLocaleString('id-ID');
+        document.getElementById('area-nota').style.display = "block";
+        setTimeout(() => { window.print(); }, 500);
+    }
 </script>
 </body>
 </html>
