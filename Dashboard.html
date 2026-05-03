@@ -22,29 +22,40 @@
         .nota-section { margin-top: 50px; padding-top: 20px; border-top: 5px solid var(--red); }
         .nota-box { display: none; margin-top: 20px; padding: 20px; border: 2px dashed #333; background: #fff; }
         
-        /* CSS KHUSUS PRINT - FIX BIAR GAK PUTIH */
+        /* CSS KHUSUS PRINT - JANGAN DIGANTI LAGI BRY */
         @media print {
-            /* Sembunyikan semua yang ada di dalam body */
-            body > * { display: none !important; }
-            
-            /* Tampilkan container dan area nota saja */
-            body > .container { display: block !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; }
-            .container > * { display: none !important; }
-            .container > .nota-section { display: block !important; margin: 0 !important; padding: 0 !important; border: none !important; }
-            .nota-section > * { display: none !important; }
-            
-            /* Munculkan paksa box nota */
-            #area-nota { 
-                display: block !important; 
-                border: 1px solid #000 !important; 
-                padding: 20px !important; 
-                margin: 0 !important;
+            /* 1. Sembunyikan semuanya secara visual */
+            body * { 
+                visibility: hidden !important; 
             }
             
-            /* Paksa teks di dalamnya kelihatan */
+            /* 2. Munculkan kembali area nota secara paksa */
             #area-nota, #area-nota * { 
                 visibility: visible !important; 
-                color: #000 !important;
+            }
+
+            /* 3. Posisikan nota tepat di pojok kiri atas kertas */
+            #area-nota {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                display: block !important;
+                border: none !important; /* Hilangkan garis putus-putus pas diprint */
+                margin: 0 !important;
+                padding: 10px !important;
+            }
+
+            /* 4. Bersihkan background */
+            body { 
+                background: white !important; 
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* 5. Jangan ikut print tombol-tombol */
+            #btn-cetak, .btn, .btn-del, a { 
+                display: none !important; 
             }
 
             @page { margin: 1cm; }
@@ -95,6 +106,7 @@
     </div>
     <button class="btn" style="background: #28a745;" onclick="prosesKeNota()">+ Masukkan ke Nota</button>
 
+    <!-- AREA NOTA INI YANG BAKAL DIPRINT -->
     <div id="area-nota" class="nota-box">
         <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 15px;">
             <h1 style="color: #cc1c1c; margin: 0;">ELF METAL ART</h1>
@@ -136,7 +148,7 @@
         </div>
     </div>
 
-    <button class="btn" id="btn-cetak" style="display:none; background: #333;" onclick="window.print()">CETAK NOTA SEKARANG</button>
+    <button class="btn" id="btn-cetak" style="display:none; background: #333;" onclick="window.print()">CETAK NOTA SEKARANG (CTRL+P)</button>
   </div>
 </div>
 
@@ -182,12 +194,14 @@
   function prosesKeNota() {
     const pel = document.getElementById('nota-pelanggan').value;
     const prod = document.getElementById('nota-produk').value;
-    const hrg = document.getElementById('nota-harga').value.replace(/\./g, "");
+    const hrgInput = document.getElementById('nota-harga').value;
     const qty = document.getElementById('nota-qty').value;
 
-    if(!pel || !prod || !hrg) { alert("Isi data dulu!"); return; }
+    if(!pel || !prod || !hrgInput) { alert("Isi data dulu!"); return; }
 
-    listNota.push({ prod, hrg: parseInt(hrg), qty, sub: parseInt(hrg) * qty });
+    const hrg = parseInt(hrgInput.replace(/\./g, ""));
+    listNota = [{ prod, hrg: hrg, qty: qty, sub: hrg * qty }]; // Reset list tiap buat nota baru
+    
     document.getElementById('p-nama').innerText = pel;
     updatePreviewNota();
   }
@@ -208,7 +222,6 @@
     document.getElementById('area-nota').style.display = "block";
     document.getElementById('btn-cetak').style.display = "block";
     
-    // Scroll otomatis ke preview biar kelihatan udah masuk
     document.getElementById('area-nota').scrollIntoView({ behavior: 'smooth' });
   }
 </script>
