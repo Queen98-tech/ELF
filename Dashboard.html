@@ -74,7 +74,8 @@
     <div style="display: flex; gap: 10px;">
         <div style="flex: 1;">
             <label>Harga (Rp):</label>
-            <input type="number" id="nota-harga" placeholder="Contoh: 1500000">
+            <!-- UBAH DISINI: type="text" dan tambah oninput -->
+            <input type="text" id="nota-harga" placeholder="Contoh: 1.500.000" oninput="formatRupiah(this)">
         </div>
         <div style="flex: 0.3;">
             <label>Qty:</label>
@@ -115,13 +116,19 @@
   let barang = JSON.parse(localStorage.getItem('katalog_elf')) || [];
   let listNota = [];
 
-  // FUNGSI NANGKEP DATA DARI KATALOG (DITAMBAHKAN)
+  // FUNGSI SUPAYA PAS NGETIK OTOMATIS ADA TITIKNYA (TAMBAHAN)
+  function formatRupiah(input) {
+    let value = input.value.replace(/[^0-9]/g, "");
+    if (value) {
+        input.value = new Intl.NumberFormat('id-ID').format(value);
+    }
+  }
+
   window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const produkDariKatalog = urlParams.get('produk');
     if (produkDariKatalog) {
       document.getElementById('nota-produk').value = decodeURIComponent(produkDariKatalog);
-      // Scroll otomatis ke bagian nota biar lo gak bingung
       document.querySelector('.nota-section').scrollIntoView({ behavior: 'smooth' });
     }
     document.getElementById('p-tgl').innerText = new Date().toLocaleDateString('id-ID');
@@ -171,23 +178,30 @@
     }
   }
 
-  // FUNGSI PROSES NOTA (DITAMBAHKAN)
+  // FUNGSI PROSES NOTA (UBAH SEDIKIT UNTUK NANGKEP FORMAT JUTAAN)
   function prosesKeNota() {
     const pelanggan = document.getElementById('nota-pelanggan').value;
     const produk = document.getElementById('nota-produk').value;
-    const harga = document.getElementById('nota-harga').value;
+    
+    // NANGKAP HARGA DAN HAPUS TITIKNYA (TAMBAHAN)
+    const hargaRaw = document.getElementById('nota-harga').value.replace(/\./g, "");
     const qty = document.getElementById('nota-qty').value;
 
-    if(!pelanggan || !produk || !harga) {
+    if(!pelanggan || !produk || !hargaRaw) {
         alert("Lengkapi data nota dulu, Bry!");
         return;
     }
 
+    const harga = parseInt(hargaRaw);
     const subtotal = harga * qty;
     listNota.push({ produk, harga, qty, subtotal });
 
     document.getElementById('p-nama').innerText = pelanggan;
     updatePreviewNota();
+    
+    // Reset input setelah klik (TAMBAHAN BIAR BERSIH)
+    document.getElementById('nota-harga').value = '';
+    document.getElementById('nota-produk').value = '';
   }
 
   function updatePreviewNota() {
@@ -198,15 +212,15 @@
     listNota.forEach(item => {
         html += `<tr>
             <td>${item.produk}</td>
-            <td>${parseInt(item.harga).toLocaleString()}</td>
+            <td>${parseInt(item.harga).toLocaleString('id-ID')}</td>
             <td>${item.qty}</td>
-            <td>${item.subtotal.toLocaleString()}</td>
+            <td>${item.subtotal.toLocaleString('id-ID')}</td>
         </tr>`;
         total += item.subtotal;
     });
 
     pList.innerHTML = html;
-    document.getElementById('p-total').innerText = total.toLocaleString();
+    document.getElementById('p-total').innerText = total.toLocaleString('id-ID');
     document.getElementById('area-nota').style.display = "block";
     document.getElementById('btn-cetak').style.display = "block";
   }
