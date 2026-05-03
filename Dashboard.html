@@ -18,35 +18,40 @@
         .img-preview { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
         label { font-weight: bold; font-size: 0.9rem; color: #555; }
 
-        /* --- STYLE KHUSUS NOTA --- */
+        /* Style Preview Nota di Layar */
         .nota-section { margin-top: 50px; padding-top: 20px; border-top: 5px solid var(--red); }
-        .nota-box { display: none; margin-top: 20px; padding: 30px; border: 1px solid #eee; background: #fff; color: #000; }
-        .nota-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
-        .nota-footer { margin-top: 40px; display: flex; justify-content: space-between; text-align: center; }
-        .ttd { margin-top: 60px; border-top: 1px solid #000; width: 150px; display: inline-block; }
-
-        /* --- LOGIC PRINT --- */
+        .nota-box { display: none; margin-top: 20px; padding: 20px; border: 2px dashed #333; background: #fff; }
+        
+        /* CSS KHUSUS PRINT - BIAR GAK KOSONG */
         @media print {
-            body { background: white; padding: 0; }
-            .container { box-shadow: none; max-width: 100%; width: 100%; padding: 0; margin: 0; }
-            /* Sembunyikan semua elemen dashboard */
-            h2, .btn, table, label, input, textarea, .nota-section > h2, .nota-section > label, .nota-section > input, .nota-section > div { 
-                display: none !important; 
-            }
-            /* Tampilkan hanya kotak nota */
-            .nota-box { 
-                display: block !important; 
-                border: none !important; 
+            /* Sembunyikan SEMUA elemen body */
+            body * { visibility: hidden; }
+            /* Kecuali nota-box dan isinya */
+            #area-nota, #area-nota * { visibility: visible; }
+            
+            #area-nota { 
+                display: block !important;
                 position: absolute; 
-                top: 0; left: 0; width: 100%;
+                left: 0; 
+                top: 0; 
+                width: 100%; 
+                border: none; 
+                padding: 0;
+                margin: 0;
             }
-            #btn-cetak { display: none !important; }
+            
+            /* Hilangkan margin/header otomatis browser */
+            @page { margin: 0.5cm; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
+  <div style="margin-bottom: 15px;">
+    <a href="index.html" style="text-decoration: none; color: #555; font-size: 0.8rem;">← Kembali ke Katalog</a>
+  </div>
+
   <h2>🛠 Dashboard Admin ELF Metal Art</h2>
   
   <div style="margin-bottom: 30px;">
@@ -66,81 +71,67 @@
     <tbody id="list-barang"></tbody>
   </table>
 
-  <!-- BAGIAN NOTA -->
   <div class="nota-section">
     <h2>📄 Buat Nota Pesanan</h2>
-    
     <label>Nama Pelanggan:</label>
     <input type="text" id="nota-pelanggan" placeholder="Nama Pembeli">
-    
     <label>Nama Produk:</label>
     <input type="text" id="nota-produk" placeholder="Nama Produk">
-    
     <div style="display: flex; gap: 10px;">
         <div style="flex: 1;">
             <label>Harga (Rp):</label>
-            <input type="text" id="nota-harga" placeholder="1.500.000" oninput="formatRupiah(this)">
+            <input type="text" id="nota-harga" placeholder="Contoh: 1.500.000" oninput="formatRupiah(this)">
         </div>
         <div style="flex: 0.3;">
             <label>Qty:</label>
             <input type="number" id="nota-qty" value="1">
         </div>
     </div>
-    
     <button class="btn" style="background: #28a745;" onclick="prosesKeNota()">+ Masukkan ke Nota</button>
 
-    <!-- AREA NOTA (YG DI-PRINT) -->
+    <!-- AREA NOTA (Ini yang harus muncul di print) -->
     <div id="area-nota" class="nota-box">
-        <div class="nota-header">
+        <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 15px;">
+            <h1 style="color: #cc1c1c; margin: 0;">ELF METAL ART</h1>
+            <p style="margin: 2px 0;">Spesialis Laser Cutting & Fabrikasi Logam - Probolinggo</p>
+            <p style="font-size: 0.7rem; margin: 0;">WhatsApp: 0822-xxxx-xxxx</p>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
             <div>
-                <h1 style="color: #cc1c1c; margin: 0; font-size: 28px;">ELF METAL ART</h1>
-                <p style="margin: 0; font-size: 12px;">Jl. Raya Probolinggo - Spesialis Laser Cutting</p>
-                <p style="margin: 0; font-size: 12px;">WhatsApp: 08xx-xxxx-xxxx</p>
+                <p style="margin: 0;"><strong>Kepada Yth:</strong></p>
+                <p style="margin: 0;" id="p-nama">-</p>
             </div>
             <div style="text-align: right;">
-                <h2 style="margin: 0; border: none; color: #333;">INVOICE</h2>
-                <p style="margin: 0;">Tanggal: <span id="p-tgl"></span></p>
+                <p style="margin: 0;"><strong>Tanggal:</strong></p>
+                <p style="margin: 0;" id="p-tgl">-</p>
             </div>
         </div>
 
-        <div style="margin-bottom: 20px;">
-            <p><strong>Kepada Yth:</strong> <span id="p-nama">-</span></p>
-        </div>
-
-        <table style="width: 100%; border: 1px solid #333;">
-            <thead style="background: #333; color: #fff;">
-                <tr>
-                    <th style="padding: 10px; color: white;">Deskripsi Produk</th>
-                    <th style="padding: 10px; color: white;">Harga</th>
-                    <th style="padding: 10px; color: white;">Qty</th>
-                    <th style="padding: 10px; color: white;">Subtotal</th>
+        <table style="width: 100%; border: 1px solid #000; border-collapse: collapse;">
+            <thead>
+                <tr style="background: #eee;">
+                    <th style="border: 1px solid #000; padding: 8px;">Deskripsi Item</th>
+                    <th style="border: 1px solid #000; padding: 8px;">Harga</th>
+                    <th style="border: 1px solid #000; padding: 8px;">Qty</th>
+                    <th style="border: 1px solid #000; padding: 8px;">Total</th>
                 </tr>
             </thead>
             <tbody id="p-list"></tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3" style="text-align: right; padding: 10px; font-weight: bold;">TOTAL BAYAR:</td>
-                    <td style="padding: 10px; font-weight: bold; background: #eee;">Rp <span id="p-total">0</span></td>
-                </tr>
-            </tfoot>
         </table>
-
-        <div class="nota-footer">
+        
+        <div style="margin-top: 20px; display: flex; justify-content: space-between;">
             <div>
-                <p>Hormat Kami,</p>
-                <div class="ttd"></div>
-                <p>( ELF Metal Art )</p>
+                <p style="margin-bottom: 50px;">Hormat Kami,</p>
+                <p><strong>( ELF Metal Art )</strong></p>
             </div>
-            <div>
-                <p>Penerima,</p>
-                <div class="ttd"></div>
-                <p id="p-nama-ttd">( .................... )</p>
+            <div style="text-align: right;">
+                <h3 style="margin: 0;">TOTAL: Rp <span id="p-total">0</span></h3>
             </div>
         </div>
-        <p style="font-size: 10px; font-style: italic; margin-top: 30px;">* Barang yang sudah dibeli tidak dapat ditukar/dikembalikan.</p>
     </div>
 
-    <button class="btn" id="btn-cetak" style="display:none; background: #333;" onclick="window.print()">CETAK SEKARANG (CTRL+P)</button>
+    <button class="btn" id="btn-cetak" style="display:none; background: #333;" onclick="window.print()">CETAK NOTA SEKARANG</button>
   </div>
 </div>
 
@@ -155,8 +146,9 @@
 
   window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('produk')) {
-      document.getElementById('nota-produk').value = decodeURIComponent(urlParams.get('produk'));
+    const p = urlParams.get('produk');
+    if (p) {
+      document.getElementById('nota-produk').value = decodeURIComponent(p);
       document.querySelector('.nota-section').scrollIntoView({ behavior: 'smooth' });
     }
     document.getElementById('p-tgl').innerText = new Date().toLocaleDateString('id-ID');
@@ -172,39 +164,42 @@
   }
 
   function tambah() {
-    const nama = document.getElementById('nama').value, file = document.getElementById('fotoInput').files[0], deskripsi = document.getElementById('deskripsi').value;
-    if (nama && file) {
-      const reader = new FileReader();
-      reader.onload = (e) => { 
-        barang.push({ nama, foto: e.target.result, deskripsi }); tampilkan(); 
-        document.getElementById('nama').value = ''; document.getElementById('fotoInput').value = ''; document.getElementById('deskripsi').value = '';
-      };
-      reader.readAsDataURL(file);
-    } else { alert("Isi data dulu!"); }
+    const n = document.getElementById('nama').value, f = document.getElementById('fotoInput').files[0];
+    if (n && f) {
+      const r = new FileReader();
+      r.onload = (e) => { barang.push({ nama:n, foto:e.target.result }); tampilkan(); };
+      r.readAsDataURL(f);
+    }
   }
 
-  function hapus(index) { if(confirm("Hapus?")) { barang.splice(index, 1); tampilkan(); } }
+  function hapus(i) { if(confirm("Hapus?")) { barang.splice(i, 1); tampilkan(); } }
 
   function prosesKeNota() {
-    const pelanggan = document.getElementById('nota-pelanggan').value, produk = document.getElementById('nota-produk').value, hargaRaw = document.getElementById('nota-harga').value.replace(/\./g, ""), qty = document.getElementById('nota-qty').value;
-    if(!pelanggan || !produk || !hargaRaw) { alert("Lengkapi data!"); return; }
-    const harga = parseInt(hargaRaw), subtotal = harga * qty;
-    listNota.push({ produk, harga, qty, subtotal });
-    document.getElementById('p-nama').innerText = pelanggan;
-    document.getElementById('p-nama-ttd').innerText = `( ${pelanggan} )`;
+    const pel = document.getElementById('nota-pelanggan').value;
+    const prod = document.getElementById('nota-produk').value;
+    const hrg = document.getElementById('nota-harga').value.replace(/\./g, "");
+    const qty = document.getElementById('nota-qty').value;
+
+    if(!pel || !prod || !hrg) { alert("Isi data dulu!"); return; }
+
+    listNota.push({ prod, hrg: parseInt(hrg), qty, sub: parseInt(hrg) * qty });
+    document.getElementById('p-nama').innerText = pel;
     updatePreviewNota();
-    document.getElementById('nota-harga').value = '';
-    document.getElementById('nota-produk').value = '';
   }
 
   function updatePreviewNota() {
-    let html = "", total = 0;
-    listNota.forEach(item => {
-        html += `<tr><td style="padding:10px;">${item.produk}</td><td style="padding:10px;">${item.harga.toLocaleString('id-ID')}</td><td style="padding:10px;">${item.qty}</td><td style="padding:10px;">${item.subtotal.toLocaleString('id-ID')}</td></tr>`;
-        total += item.subtotal;
+    let html = "", tot = 0;
+    listNota.forEach(i => {
+        html += `<tr>
+            <td style="border: 1px solid #000; padding: 8px;">${i.prod}</td>
+            <td style="border: 1px solid #000; padding: 8px;">${i.hrg.toLocaleString('id-ID')}</td>
+            <td style="border: 1px solid #000; padding: 8px;">${i.qty}</td>
+            <td style="border: 1px solid #000; padding: 8px;">${i.sub.toLocaleString('id-ID')}</td>
+        </tr>`;
+        tot += i.sub;
     });
     document.getElementById('p-list').innerHTML = html;
-    document.getElementById('p-total').innerText = total.toLocaleString('id-ID');
+    document.getElementById('p-total').innerText = tot.toLocaleString('id-ID');
     document.getElementById('area-nota').style.display = "block";
     document.getElementById('btn-cetak').style.display = "block";
   }
