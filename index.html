@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ELF METAL ART DECORATIVE</title>
     <style>
-        /* CSS tetap sama supaya desain gak berantakan */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
         :root { --red: #cc1c1c; --border: #e0e0e0; }
+
         nav { padding: 15px 20px; background: #fff; border-bottom: 1px solid var(--border); display: flex; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .logo { color: var(--red); font-weight: 900; font-size: 1.2rem; letter-spacing: 1px; text-transform: uppercase; }
+
         #home { padding: 20px; max-width: 1200px; margin: auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .hero-img { width: 100%; border-radius: 12px; overflow: hidden; }
         .hero-img img { width: 100%; height: auto; display: block; object-fit: cover; }
@@ -17,14 +18,18 @@
         .hero-text h1 { font-size: 2.2rem; font-weight: 800; color: var(--red); margin-bottom: 10px; line-height: 1.1; }
         .hero-text p { font-size: 1rem; color: #333; line-height: 1.6; margin-bottom: 20px; }
         .btn-wa { display: inline-block; background: var(--red); color: #fff; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
+
         .welcome-bar { background: var(--red); color: #fff; text-align: center; padding: 15px; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; margin: 20px 0; }
+
         #about { padding: 20px; max-width: 1200px; margin: auto; display: flex; flex-direction: column; gap: 20px; }
         .about-img { width: 100%; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
         .about-img img { width: 100%; height: auto; display: block; }
         .about-info h2 { font-size: 1.8rem; font-weight: 800; color: var(--red); margin-bottom: 10px; }
         .about-info p { line-height: 1.7; color: #444; font-size: 0.95rem; }
+
         #layanan { padding: 40px 20px; max-width: 1200px; margin: auto; }
         #layanan h2 { text-align: center; font-size: 1.8rem; font-weight: 800; color: var(--red); margin-bottom: 30px; text-transform: uppercase; }
+        
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         .card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; background: #fff; transition: 0.3s; cursor: pointer; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
@@ -70,33 +75,33 @@
     <section id="layanan">
         <h2>Katalog Layanan Kami</h2>
         <div class="grid" id="container-katalog">
-            <!-- 7 ITEM PERMANEN -->
+            <!-- 7 ITEM UTAMA (STATIS) -->
             <div class="card" onclick="kirimKeDashboard('Pagar')">
-                <div class="card-photo"><img src="Pagar (1).jpg"></div>
+                <div class="card-photo"><img src="Pagar (1).jpg" alt="Pagar"></div>
                 <div class="card-name">Pagar</div>
             </div>
             <div class="card" onclick="kirimKeDashboard('Kanopi')">
-                <div class="card-photo"><img src="Kanopi.jpg"></div>
+                <div class="card-photo"><img src="Kanopi.jpg" alt="Kanopi"></div>
                 <div class="card-name">Kanopi</div>
             </div>
             <div class="card" onclick="kirimKeDashboard('Ralling Tangga')">
-                <div class="card-photo"><img src="Ralling Tangga.jpg"></div>
+                <div class="card-photo"><img src="Ralling Tangga.jpg" alt="Ralling Tangga"></div>
                 <div class="card-name">Ralling Tangga</div>
             </div>
             <div class="card" onclick="kirimKeDashboard('Balkon')">
-                <div class="card-photo"><img src="Balcon Railing.webp"></div>
+                <div class="card-photo"><img src="Balcon Railing.webp" alt="Balkon"></div>
                 <div class="card-name">Balkon</div>
             </div>
             <div class="card" onclick="kirimKeDashboard('Lampu Tenaga Surya')">
-                <div class="card-photo"><img src="lampu Tenaga Surya.jpg"></div>
+                <div class="card-photo"><img src="lampu Tenaga Surya.jpg" alt="Lampu Tenaga Surya"></div>
                 <div class="card-name">Lampu Tenaga Surya</div>
             </div>
             <div class="card" onclick="kirimKeDashboard('Teralis')">
-                <div class="card-photo"><img src="tralis pintu.jpg"></div>
+                <div class="card-photo"><img src="tralis pintu.jpg" alt="Teralis"></div>
                 <div class="card-name">Teralis</div>
             </div>
             <div class="card" onclick="kirimKeDashboard('Pagar Plat Cutting')">
-                <div class="card-photo"><img src="Pagar laser cutting.jpg"></div>
+                <div class="card-photo"><img src="Pagar laser cutting.jpg" alt="Pagar Plat Cutting"></div>
                 <div class="card-name">Pagar Plat Cutting</div>
             </div>
         </div>
@@ -105,9 +110,9 @@
     <script>
         function loadExtraItems() {
             const container = document.getElementById('container-katalog');
-            // Data tambahan dari dashboard tetap bisa masuk di bawahnya
             const extraData = JSON.parse(localStorage.getItem('katalog_elf')) || [];
             
+            // Item tambahan dari dashboard akan muncul setelah 7 item utama
             extraData.forEach(p => {
                 const div = document.createElement('div');
                 div.className = 'card';
