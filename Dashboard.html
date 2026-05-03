@@ -18,64 +18,68 @@
         .img-preview { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
         label { font-weight: bold; font-size: 0.9rem; color: #555; }
 
-        /* Tambahan Style untuk Nota */
+        /* --- STYLE KHUSUS NOTA --- */
         .nota-section { margin-top: 50px; padding-top: 20px; border-top: 5px solid var(--red); }
-        .nota-box { display: none; margin-top: 20px; padding: 15px; border: 2px dashed #333; background: #fff; }
-        
+        .nota-box { display: none; margin-top: 20px; padding: 30px; border: 1px solid #eee; background: #fff; color: #000; }
+        .nota-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+        .nota-footer { margin-top: 40px; display: flex; justify-content: space-between; text-align: center; }
+        .ttd { margin-top: 60px; border-top: 1px solid #000; width: 150px; display: inline-block; }
+
+        /* --- LOGIC PRINT --- */
         @media print {
-            body * { visibility: hidden; }
-            .nota-box, .nota-box * { visibility: visible; }
-            .nota-box { position: absolute; left: 0; top: 0; width: 100%; border: none; display: block !important; }
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; max-width: 100%; width: 100%; padding: 0; margin: 0; }
+            /* Sembunyikan semua elemen dashboard */
+            h2, .btn, table, label, input, textarea, .nota-section > h2, .nota-section > label, .nota-section > input, .nota-section > div { 
+                display: none !important; 
+            }
+            /* Tampilkan hanya kotak nota */
+            .nota-box { 
+                display: block !important; 
+                border: none !important; 
+                position: absolute; 
+                top: 0; left: 0; width: 100%;
+            }
+            #btn-cetak { display: none !important; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-  <!-- BAGIAN DASHBOARD ADMIN (TETAP SAMA) -->
   <h2>🛠 Dashboard Admin ELF Metal Art</h2>
   
   <div style="margin-bottom: 30px;">
     <label>Nama Barang:</label>
     <input type="text" id="nama" placeholder="Contoh: Pagar Laser Cutting">
-    
-    <label>Pilih Foto dari File Explorer:</label>
+    <label>Pilih Foto:</label>
     <input type="file" id="fotoInput" accept="image/*">
-    
     <label>Deskripsi:</label>
     <textarea id="deskripsi" placeholder="Deskripsi singkat..."></textarea>
-    
     <button class="btn" onclick="tambah()">Tambah Barang Ke Katalog</button>
   </div>
 
   <table>
     <thead>
-      <tr>
-        <th>Foto</th>
-        <th>Nama</th>
-        <th>Aksi</th>
-      </tr>
+      <tr><th>Foto</th><th>Nama</th><th>Aksi</th></tr>
     </thead>
     <tbody id="list-barang"></tbody>
   </table>
 
-  <!-- ========================================== -->
-  <!-- TAMBAHAN: BAGIAN PEMBUATAN NOTA -->
-  <!-- ========================================== -->
+  <!-- BAGIAN NOTA -->
   <div class="nota-section">
     <h2>📄 Buat Nota Pesanan</h2>
     
     <label>Nama Pelanggan:</label>
     <input type="text" id="nota-pelanggan" placeholder="Nama Pembeli">
     
-    <label>Nama Produk (Terisi otomatis jika dari katalog):</label>
+    <label>Nama Produk:</label>
     <input type="text" id="nota-produk" placeholder="Nama Produk">
     
     <div style="display: flex; gap: 10px;">
         <div style="flex: 1;">
             <label>Harga (Rp):</label>
-            <!-- UBAH DISINI: type="text" dan tambah oninput -->
-            <input type="text" id="nota-harga" placeholder="Contoh: 1.500.000" oninput="formatRupiah(this)">
+            <input type="text" id="nota-harga" placeholder="1.500.000" oninput="formatRupiah(this)">
         </div>
         <div style="flex: 0.3;">
             <label>Qty:</label>
@@ -85,30 +89,58 @@
     
     <button class="btn" style="background: #28a745;" onclick="prosesKeNota()">+ Masukkan ke Nota</button>
 
-    <!-- Preview Nota yang Akan Dicetak -->
+    <!-- AREA NOTA (YG DI-PRINT) -->
     <div id="area-nota" class="nota-box">
-        <div style="text-align: center;">
-            <h1 style="color: var(--red); margin: 0;">ELF METAL ART</h1>
-            <p style="font-size: 0.8rem;">Spesialis Laser Cutting & Fabrikasi Logam - Probolinggo</p>
-            <hr style="margin: 10px 0;">
+        <div class="nota-header">
+            <div>
+                <h1 style="color: #cc1c1c; margin: 0; font-size: 28px;">ELF METAL ART</h1>
+                <p style="margin: 0; font-size: 12px;">Jl. Raya Probolinggo - Spesialis Laser Cutting</p>
+                <p style="margin: 0; font-size: 12px;">WhatsApp: 08xx-xxxx-xxxx</p>
+            </div>
+            <div style="text-align: right;">
+                <h2 style="margin: 0; border: none; color: #333;">INVOICE</h2>
+                <p style="margin: 0;">Tanggal: <span id="p-tgl"></span></p>
+            </div>
         </div>
-        <p><strong>Pelanggan:</strong> <span id="p-nama">-</span></p>
-        <p><strong>Tanggal:</strong> <span id="p-tgl">-</span></p>
-        <table style="font-size: 0.9rem;">
-            <thead>
+
+        <div style="margin-bottom: 20px;">
+            <p><strong>Kepada Yth:</strong> <span id="p-nama">-</span></p>
+        </div>
+
+        <table style="width: 100%; border: 1px solid #333;">
+            <thead style="background: #333; color: #fff;">
                 <tr>
-                    <th>Item</th>
-                    <th>Harga</th>
-                    <th>Qty</th>
-                    <th>Subtotal</th>
+                    <th style="padding: 10px; color: white;">Deskripsi Produk</th>
+                    <th style="padding: 10px; color: white;">Harga</th>
+                    <th style="padding: 10px; color: white;">Qty</th>
+                    <th style="padding: 10px; color: white;">Subtotal</th>
                 </tr>
             </thead>
             <tbody id="p-list"></tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" style="text-align: right; padding: 10px; font-weight: bold;">TOTAL BAYAR:</td>
+                    <td style="padding: 10px; font-weight: bold; background: #eee;">Rp <span id="p-total">0</span></td>
+                </tr>
+            </tfoot>
         </table>
-        <h3 style="text-align: right; margin-top: 15px;">Total: Rp <span id="p-total">0</span></h3>
+
+        <div class="nota-footer">
+            <div>
+                <p>Hormat Kami,</p>
+                <div class="ttd"></div>
+                <p>( ELF Metal Art )</p>
+            </div>
+            <div>
+                <p>Penerima,</p>
+                <div class="ttd"></div>
+                <p id="p-nama-ttd">( .................... )</p>
+            </div>
+        </div>
+        <p style="font-size: 10px; font-style: italic; margin-top: 30px;">* Barang yang sudah dibeli tidak dapat ditukar/dikembalikan.</p>
     </div>
 
-    <button class="btn" id="btn-cetak" style="display:none; background: #333;" onclick="window.print()">CETAK NOTA SEKARANG</button>
+    <button class="btn" id="btn-cetak" style="display:none; background: #333;" onclick="window.print()">CETAK SEKARANG (CTRL+P)</button>
   </div>
 </div>
 
@@ -116,19 +148,15 @@
   let barang = JSON.parse(localStorage.getItem('katalog_elf')) || [];
   let listNota = [];
 
-  // FUNGSI SUPAYA PAS NGETIK OTOMATIS ADA TITIKNYA (TAMBAHAN)
   function formatRupiah(input) {
     let value = input.value.replace(/[^0-9]/g, "");
-    if (value) {
-        input.value = new Intl.NumberFormat('id-ID').format(value);
-    }
+    if (value) input.value = new Intl.NumberFormat('id-ID').format(value);
   }
 
   window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const produkDariKatalog = urlParams.get('produk');
-    if (produkDariKatalog) {
-      document.getElementById('nota-produk').value = decodeURIComponent(produkDariKatalog);
+    if (urlParams.get('produk')) {
+      document.getElementById('nota-produk').value = decodeURIComponent(urlParams.get('produk'));
       document.querySelector('.nota-section').scrollIntoView({ behavior: 'smooth' });
     }
     document.getElementById('p-tgl').innerText = new Date().toLocaleDateString('id-ID');
@@ -138,88 +166,44 @@
     const list = document.getElementById('list-barang');
     list.innerHTML = '';
     barang.forEach((item, index) => {
-      list.innerHTML += `
-        <tr>
-          <td><img src="${item.foto}" class="img-preview"></td>
-          <td><strong>${item.nama}</strong></td>
-          <td><button class="btn-del" onclick="hapus(${index})">Hapus</button></td>
-        </tr>
-      `;
+      list.innerHTML += `<tr><td><img src="${item.foto}" class="img-preview"></td><td><strong>${item.nama}</strong></td><td><button class="btn-del" onclick="hapus(${index})">Hapus</button></td></tr>`;
     });
     localStorage.setItem('katalog_elf', JSON.stringify(barang));
   }
 
   function tambah() {
-    const nama = document.getElementById('nama').value;
-    const fileInput = document.getElementById('fotoInput');
-    const deskripsi = document.getElementById('deskripsi').value;
-    const file = fileInput.files[0];
-
+    const nama = document.getElementById('nama').value, file = document.getElementById('fotoInput').files[0], deskripsi = document.getElementById('deskripsi').value;
     if (nama && file) {
       const reader = new FileReader();
-      reader.onload = function(e) {
-        const fotoBase64 = e.target.result;
-        barang.push({ nama, foto: fotoBase64, deskripsi });
-        tampilkan();
-        document.getElementById('nama').value = '';
-        document.getElementById('fotoInput').value = '';
-        document.getElementById('deskripsi').value = '';
+      reader.onload = (e) => { 
+        barang.push({ nama, foto: e.target.result, deskripsi }); tampilkan(); 
+        document.getElementById('nama').value = ''; document.getElementById('fotoInput').value = ''; document.getElementById('deskripsi').value = '';
       };
       reader.readAsDataURL(file);
-    } else {
-      alert("Isi Nama Barang dan Pilih Foto dulu!");
-    }
+    } else { alert("Isi data dulu!"); }
   }
 
-  function hapus(index) {
-    if(confirm("Hapus barang ini?")) {
-      barang.splice(index, 1);
-      tampilkan();
-    }
-  }
+  function hapus(index) { if(confirm("Hapus?")) { barang.splice(index, 1); tampilkan(); } }
 
-  // FUNGSI PROSES NOTA (UBAH SEDIKIT UNTUK NANGKEP FORMAT JUTAAN)
   function prosesKeNota() {
-    const pelanggan = document.getElementById('nota-pelanggan').value;
-    const produk = document.getElementById('nota-produk').value;
-    
-    // NANGKAP HARGA DAN HAPUS TITIKNYA (TAMBAHAN)
-    const hargaRaw = document.getElementById('nota-harga').value.replace(/\./g, "");
-    const qty = document.getElementById('nota-qty').value;
-
-    if(!pelanggan || !produk || !hargaRaw) {
-        alert("Lengkapi data nota dulu, Bry!");
-        return;
-    }
-
-    const harga = parseInt(hargaRaw);
-    const subtotal = harga * qty;
+    const pelanggan = document.getElementById('nota-pelanggan').value, produk = document.getElementById('nota-produk').value, hargaRaw = document.getElementById('nota-harga').value.replace(/\./g, ""), qty = document.getElementById('nota-qty').value;
+    if(!pelanggan || !produk || !hargaRaw) { alert("Lengkapi data!"); return; }
+    const harga = parseInt(hargaRaw), subtotal = harga * qty;
     listNota.push({ produk, harga, qty, subtotal });
-
     document.getElementById('p-nama').innerText = pelanggan;
+    document.getElementById('p-nama-ttd').innerText = `( ${pelanggan} )`;
     updatePreviewNota();
-    
-    // Reset input setelah klik (TAMBAHAN BIAR BERSIH)
     document.getElementById('nota-harga').value = '';
     document.getElementById('nota-produk').value = '';
   }
 
   function updatePreviewNota() {
-    const pList = document.getElementById('p-list');
-    let html = "";
-    let total = 0;
-
+    let html = "", total = 0;
     listNota.forEach(item => {
-        html += `<tr>
-            <td>${item.produk}</td>
-            <td>${parseInt(item.harga).toLocaleString('id-ID')}</td>
-            <td>${item.qty}</td>
-            <td>${item.subtotal.toLocaleString('id-ID')}</td>
-        </tr>`;
+        html += `<tr><td style="padding:10px;">${item.produk}</td><td style="padding:10px;">${item.harga.toLocaleString('id-ID')}</td><td style="padding:10px;">${item.qty}</td><td style="padding:10px;">${item.subtotal.toLocaleString('id-ID')}</td></tr>`;
         total += item.subtotal;
     });
-
-    pList.innerHTML = html;
+    document.getElementById('p-list').innerHTML = html;
     document.getElementById('p-total').innerText = total.toLocaleString('id-ID');
     document.getElementById('area-nota').style.display = "block";
     document.getElementById('btn-cetak').style.display = "block";
@@ -227,6 +211,5 @@
 
   tampilkan();
 </script>
-
 </body>
 </html>
