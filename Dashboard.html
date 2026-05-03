@@ -2,97 +2,217 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard | ELF Metal Art</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | ELF METAL ART</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; background: #f4f4f4; }
+        :root { --red: #cc1c1c; --bg: #f4f4f4; }
+        body { font-family: sans-serif; background: var(--bg); padding: 20px; }
         .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h2 { color: #cc1c1c; border-bottom: 2px solid #cc1c1c; padding-bottom: 10px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; }
-        input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
-        button { background: #cc1c1c; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
-        table { width: 100%; margin-top: 20px; border-collapse: collapse; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        h2 { color: var(--red); border-bottom: 2px solid var(--red); padding-bottom: 10px; margin-top: 20px; }
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; display: block; }
+        .btn { background: var(--red); color: white; border: none; padding: 12px 20px; cursor: pointer; font-weight: bold; width: 100%; border-radius: 4px; margin-top: 10px; }
+        table { width: 100%; margin-top: 30px; border-collapse: collapse; }
+        th, td { border-bottom: 1px solid #ddd; padding: 12px; text-align: left; }
         th { background: #eee; }
-        .btn-hapus { background: #ff4d4d; padding: 5px 10px; border-radius: 4px; color: white; text-decoration: none; font-size: 12px; cursor: pointer; }
+        .btn-del { background: #ff4444; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        .img-preview { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
+        label { font-weight: bold; font-size: 0.9rem; color: #555; }
+
+        /* Tambahan Style untuk Nota */
+        .nota-section { margin-top: 50px; padding-top: 20px; border-top: 5px solid var(--red); }
+        .nota-box { display: none; margin-top: 20px; padding: 15px; border: 2px dashed #333; background: #fff; }
+        
+        @media print {
+            body * { visibility: hidden; }
+            .nota-box, .nota-box * { visibility: visible; }
+            .nota-box { position: absolute; left: 0; top: 0; width: 100%; border: none; display: block !important; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>🛠 Dashboard Admin ELF Metal Art</h2>
-        <div class="form-group">
-            <label>Nama Barang:</label>
-            <input type="text" id="namaBarang" placeholder="Contoh: Pagar Laser Cutting">
-        </div>
-        <div class="form-group">
-            <label>Pilih Foto:</label>
-            <input type="file" id="fotoBarang" accept="image/*">
-        </div>
-        <button onclick="tambahBarang()">Tambah Barang Ke Katalog</button>
 
-        <table id="tabelBarang">
+<div class="container">
+  <!-- BAGIAN DASHBOARD ADMIN (TETAP SAMA) -->
+  <h2>🛠 Dashboard Admin ELF Metal Art</h2>
+  
+  <div style="margin-bottom: 30px;">
+    <label>Nama Barang:</label>
+    <input type="text" id="nama" placeholder="Contoh: Pagar Laser Cutting">
+    
+    <label>Pilih Foto dari File Explorer:</label>
+    <input type="file" id="fotoInput" accept="image/*">
+    
+    <label>Deskripsi:</label>
+    <textarea id="deskripsi" placeholder="Deskripsi singkat..."></textarea>
+    
+    <button class="btn" onclick="tambah()">Tambah Barang Ke Katalog</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Foto</th>
+        <th>Nama</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="list-barang"></tbody>
+  </table>
+
+  <!-- ========================================== -->
+  <!-- TAMBAHAN: BAGIAN PEMBUATAN NOTA -->
+  <!-- ========================================== -->
+  <div class="nota-section">
+    <h2>📄 Buat Nota Pesanan</h2>
+    
+    <label>Nama Pelanggan:</label>
+    <input type="text" id="nota-pelanggan" placeholder="Nama Pembeli">
+    
+    <label>Nama Produk (Terisi otomatis jika dari katalog):</label>
+    <input type="text" id="nota-produk" placeholder="Nama Produk">
+    
+    <div style="display: flex; gap: 10px;">
+        <div style="flex: 1;">
+            <label>Harga (Rp):</label>
+            <input type="number" id="nota-harga" placeholder="Contoh: 1500000">
+        </div>
+        <div style="flex: 0.3;">
+            <label>Qty:</label>
+            <input type="number" id="nota-qty" value="1">
+        </div>
+    </div>
+    
+    <button class="btn" style="background: #28a745;" onclick="prosesKeNota()">+ Masukkan ke Nota</button>
+
+    <!-- Preview Nota yang Akan Dicetak -->
+    <div id="area-nota" class="nota-box">
+        <div style="text-align: center;">
+            <h1 style="color: var(--red); margin: 0;">ELF METAL ART</h1>
+            <p style="font-size: 0.8rem;">Spesialis Laser Cutting & Fabrikasi Logam - Probolinggo</p>
+            <hr style="margin: 10px 0;">
+        </div>
+        <p><strong>Pelanggan:</strong> <span id="p-nama">-</span></p>
+        <p><strong>Tanggal:</strong> <span id="p-tgl">-</span></p>
+        <table style="font-size: 0.9rem;">
             <thead>
                 <tr>
-                    <th>Foto</th>
-                    <th>Nama</th>
-                    <th>Aksi</th>
+                    <th>Item</th>
+                    <th>Harga</th>
+                    <th>Qty</th>
+                    <th>Subtotal</th>
                 </tr>
             </thead>
-            <tbody id="listBarang"></tbody>
+            <tbody id="p-list"></tbody>
         </table>
+        <h3 style="text-align: right; margin-top: 15px;">Total: Rp <span id="p-total">0</span></h3>
     </div>
 
-    <script>
-        function tambahBarang() {
-            const nama = document.getElementById('namaBarang').value;
-            const fileInput = document.getElementById('fotoBarang');
-            const file = fileInput.files[0];
+    <button class="btn" id="btn-cetak" style="display:none; background: #333;" onclick="window.print()">CETAK NOTA SEKARANG</button>
+  </div>
+</div>
 
-            if (!nama || !file) {
-                alert("Isi nama dan pilih foto dulu, Bry!");
-                return;
-            }
+<script>
+  let barang = JSON.parse(localStorage.getItem('katalog_elf')) || [];
+  let listNota = [];
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const fotoBase64 = e.target.result;
-                const barangBaru = { id: Date.now(), nama: nama, foto: fotoBase64 };
+  // FUNGSI NANGKEP DATA DARI KATALOG (DITAMBAHKAN)
+  window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const produkDariKatalog = urlParams.get('produk');
+    if (produkDariKatalog) {
+      document.getElementById('nota-produk').value = decodeURIComponent(produkDariKatalog);
+      // Scroll otomatis ke bagian nota biar lo gak bingung
+      document.querySelector('.nota-section').scrollIntoView({ behavior: 'smooth' });
+    }
+    document.getElementById('p-tgl').innerText = new Date().toLocaleDateString('id-ID');
+  });
 
-                let produkList = JSON.parse(localStorage.getItem('produkList')) || [];
-                produkList.push(barangBaru);
-                localStorage.setItem('produkList', JSON.stringify(produkList));
+  function tampilkan() {
+    const list = document.getElementById('list-barang');
+    list.innerHTML = '';
+    barang.forEach((item, index) => {
+      list.innerHTML += `
+        <tr>
+          <td><img src="${item.foto}" class="img-preview"></td>
+          <td><strong>${item.nama}</strong></td>
+          <td><button class="btn-del" onclick="hapus(${index})">Hapus</button></td>
+        </tr>
+      `;
+    });
+    localStorage.setItem('katalog_elf', JSON.stringify(barang));
+  }
 
-                renderTable();
-                document.getElementById('namaBarang').value = '';
-                fileInput.value = '';
-            };
-            reader.readAsDataURL(file);
-        }
+  function tambah() {
+    const nama = document.getElementById('nama').value;
+    const fileInput = document.getElementById('fotoInput');
+    const deskripsi = document.getElementById('deskripsi').value;
+    const file = fileInput.files[0];
 
-        function renderTable() {
-            const list = document.getElementById('listBarang');
-            const produkList = JSON.parse(localStorage.getItem('produkList')) || [];
-            list.innerHTML = '';
+    if (nama && file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const fotoBase64 = e.target.result;
+        barang.push({ nama, foto: fotoBase64, deskripsi });
+        tampilkan();
+        document.getElementById('nama').value = '';
+        document.getElementById('fotoInput').value = '';
+        document.getElementById('deskripsi').value = '';
+      };
+      reader.readAsDataURL(file);
+    } else {
+      alert("Isi Nama Barang dan Pilih Foto dulu!");
+    }
+  }
 
-            produkList.forEach(barang => {
-                list.innerHTML += `
-                    <tr>
-                        <td><img src="${barang.foto}" width="50"></td>
-                        <td>${barang.nama}</td>
-                        <td><button class="btn-hapus" onclick="hapusBarang(${barang.id})">Hapus</button></td>
-                    </tr>
-                `;
-            });
-        }
+  function hapus(index) {
+    if(confirm("Hapus barang ini?")) {
+      barang.splice(index, 1);
+      tampilkan();
+    }
+  }
 
-        function hapusBarang(id) {
-            let produkList = JSON.parse(localStorage.getItem('produkList')) || [];
-            produkList = produkList.filter(b => b.id !== id);
-            localStorage.setItem('produkList', JSON.stringify(produkList));
-            renderTable();
-        }
+  // FUNGSI PROSES NOTA (DITAMBAHKAN)
+  function prosesKeNota() {
+    const pelanggan = document.getElementById('nota-pelanggan').value;
+    const produk = document.getElementById('nota-produk').value;
+    const harga = document.getElementById('nota-harga').value;
+    const qty = document.getElementById('nota-qty').value;
 
-        window.onload = renderTable;
-    </script>
+    if(!pelanggan || !produk || !harga) {
+        alert("Lengkapi data nota dulu, Bry!");
+        return;
+    }
+
+    const subtotal = harga * qty;
+    listNota.push({ produk, harga, qty, subtotal });
+
+    document.getElementById('p-nama').innerText = pelanggan;
+    updatePreviewNota();
+  }
+
+  function updatePreviewNota() {
+    const pList = document.getElementById('p-list');
+    let html = "";
+    let total = 0;
+
+    listNota.forEach(item => {
+        html += `<tr>
+            <td>${item.produk}</td>
+            <td>${parseInt(item.harga).toLocaleString()}</td>
+            <td>${item.qty}</td>
+            <td>${item.subtotal.toLocaleString()}</td>
+        </tr>`;
+        total += item.subtotal;
+    });
+
+    pList.innerHTML = html;
+    document.getElementById('p-total').innerText = total.toLocaleString();
+    document.getElementById('area-nota').style.display = "block";
+    document.getElementById('btn-cetak').style.display = "block";
+  }
+
+  tampilkan();
+</script>
+
 </body>
 </html>
