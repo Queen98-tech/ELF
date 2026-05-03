@@ -1,125 +1,107 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ELF METAL ART DECORATIVE | Spesialis Laser Cutting & Fabrikasi Logam</title>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard | ELF METAL ART</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --red: #cc1c1c; --red-dark: #a81515; --text: #222222; --text-light: #555555; --border: #e0e0e0; }
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--text); background: #fff; }
-
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: #fff; z-index: 100; }
-    .logo { font-size: 1rem; font-weight: 800; color: var(--red); letter-spacing: 1px; text-transform: uppercase; }
-
-    #home { padding: 30px 20px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
-    .hero-image { width: 100%; border-radius: 12px; overflow: hidden; max-height: 240px; }
-    .hero-image img { width: 100%; height: 240px; object-fit: cover; border-radius: 12px; }
-    .hero-content { width: 100%; text-align: center; }
-    .hero-content h1 { font-size: 1.8rem; font-weight: 800; color: var(--red); line-height: 1.2; margin-bottom: 10px; }
-    .hero-content .tagline { font-style: italic; color: var(--text-light); font-size: 0.9rem; margin-bottom: 12px; }
-    .hero-content p { font-size: 0.9rem; line-height: 1.7; margin-bottom: 20px; }
-    .btn-pesan { display: inline-block; background: var(--red); color: #fff; padding: 12px 28px; border-radius: 6px; font-size: 0.95rem; font-weight: 700; text-decoration: none; }
-    .btn-pesan:hover { background: var(--red-dark); }
-
-    .welcome-banner { background: var(--red); color: #fff; text-align: center; padding: 18px 20px; }
-    .welcome-banner h2 { font-size: 1rem; font-weight: 700; }
-    .banner-arrow { width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent; border-top: 16px solid var(--red); margin: 0 auto; }
-
-    #about { padding: 32px 20px; }
-    .about-grid { display: flex; flex-direction: column; gap: 20px; }
-    .about-image { width: 100%; height: 200px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
-    .about-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
-    .about-text h2 { font-size: 1.5rem; font-weight: 800; color: var(--red); margin-bottom: 8px; }
-    .about-text .underline { width: 40px; height: 3px; background: var(--red); margin-bottom: 14px; }
-    .about-text p { font-size: 0.9rem; line-height: 1.8; }
-
-    #layanan { padding: 24px 20px 60px; }
-    #layanan h2 { text-align: center; font-size: 1.3rem; font-weight: 800; color: var(--red); margin-bottom: 20px; }
-    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .service-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .service-card .card-img { width: 100%; height: 130px; overflow: hidden; border-bottom: 1px solid var(--border); }
-    .service-card .card-img img { width: 100%; height: 100%; object-fit: cover; }
-    .service-card .card-label { text-align: center; padding: 10px 6px; font-size: 0.8rem; font-weight: 700; }
-
-    @media (min-width: 768px) {
-      nav { padding: 18px 60px; }
-      .logo { font-size: 1.3rem; }
-      #home { flex-direction: row; padding: 80px 60px; min-height: 70vh; gap: 60px; }
-      .hero-image { max-width: 520px; height: 420px; max-height: none; }
-      .hero-image img { height: 420px; }
-      .hero-content { text-align: left; max-width: 520px; }
-      .hero-content h1 { font-size: 3.2rem; }
-      .welcome-banner { padding: 28px 60px; }
-      .welcome-banner h2 { font-size: 1.4rem; }
-      #about { padding: 80px 60px; }
-      .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-      .about-image { height: 320px; }
-      .about-text h2 { font-size: 2rem; }
-      #layanan { padding: 60px 60px 80px; }
-      #layanan h2 { font-size: 1.8rem; margin-bottom: 40px; }
-      .services-grid { gap: 30px; }
-      .service-card .card-img { height: 240px; }
-      .service-card .card-label { font-size: 1rem; padding: 18px; }
-    }
-
-    .wa-float { position: fixed; bottom: 24px; right: 20px; z-index: 999; display: flex; align-items: center; gap: 10px; text-decoration: none; animation: wa-bounce 2.5s infinite; }
-    .wa-float:hover .wa-label { opacity: 1; transform: translateX(0); }
-    .wa-label { background: #25D366; color: #fff; font-size: 0.85rem; font-weight: 700; padding: 7px 12px; border-radius: 20px; white-space: nowrap; opacity: 0; transform: translateX(10px); transition: opacity 0.3s, transform 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-    .wa-icon { width: 52px; height: 52px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(37,211,102,0.5); flex-shrink: 0; position: relative; }
-    .wa-icon svg { width: 28px; height: 28px; fill: #fff; }
-    .wa-icon::before { content: ''; position: absolute; width: 52px; height: 52px; border-radius: 50%; background: rgba(37,211,102,0.4); animation: wa-pulse 2s infinite; }
-    @keyframes wa-pulse { 0% { transform: scale(1); opacity: 0.8; } 70% { transform: scale(1.5); opacity: 0; } 100% { transform: scale(1.5); opacity: 0; } }
-    @keyframes wa-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    :root { --red: #cc1c1c; --bg: #f4f4f4; }
+    body { font-family: sans-serif; background: var(--bg); padding: 20px; }
+    .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h2 { color: var(--red); border-bottom: 2px solid var(--red); padding-bottom: 10px; }
+    input, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; display: block; }
+    .btn { background: var(--red); color: white; border: none; padding: 12px 20px; cursor: pointer; font-weight: bold; width: 100%; border-radius: 4px; margin-top: 10px; }
+    table { width: 100%; margin-top: 30px; border-collapse: collapse; }
+    th, td { border-bottom: 1px solid #ddd; padding: 12px; text-align: left; }
+    th { background: #eee; }
+    .btn-del { background: #ff4444; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+    .img-preview { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
+    label { font-weight: bold; font-size: 0.9rem; color: #555; }
   </style>
 </head>
 <body>
-  <nav><div class="logo">ELF METAL ART</div></nav>
 
-  <section id="home">
-    <div class="hero-image"><img src="Hero.jpeg" alt="ELF Metal Art" /></div>
-    <div class="hero-content">
-      <h1>ELF Metal Art Decorative</h1>
-      <p class="tagline">"Spesialis Laser Cutting &amp; Fabrikasi Logam Custom"</p>
-      <p>Kami menerima berbagai macam pesanan mulai dari pagar minimalis, balkon artistik, railing tangga, kanopi, hingga partisi dinding.</p>
-      <a href="https://wa.me/6281333366554?text=Halo%2C%20saya%20ingin%20pesan%20produk%20ELF%20Metal%20Art%20Decorative" class="btn-pesan">Pesan Sekarang</a>
-    </div>
-  </section>
+<div class="container">
+  <h2>🛠 Dashboard Admin ELF Metal Art</h2>
+  
+  <div style="margin-bottom: 30px;">
+    <label>Nama Barang:</label>
+    <input type="text" id="nama" placeholder="Contoh: Pagar Laser Cutting">
+    
+    <label>Pilih Foto dari File Explorer:</label>
+    <input type="file" id="fotoInput" accept="image/*">
+    
+    <label>Deskripsi:</label>
+    <textarea id="deskripsi" placeholder="Deskripsi singkat..."></textarea>
+    
+    <button class="btn" onclick="tambah()">Tambah Barang Ke Katalog</button>
+  </div>
 
-  <div class="welcome-banner"><h2>Selamat Datang di Elf Metal Art Decorative Website</h2></div>
-  <div style="text-align:center;"><div class="banner-arrow"></div></div>
+  <table>
+    <thead>
+      <tr>
+        <th>Foto</th>
+        <th>Nama</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="list-barang"></tbody>
+  </table>
+</div>
 
-  <section id="about">
-    <div class="about-grid">
-      <div class="about-image"><img src="About-us.jpeg" alt="Foto Bengkel" /></div>
-      <div class="about-text">
-        <h2>About Us</h2>
-        <div class="underline"></div>
-        <p><strong>ELF Metal Art Decorative</strong> adalah bengkel fabrikasi logam profesional yang berpengalaman dalam menghadirkan produk logam berkualitas tinggi. Kami melayani berbagai kebutuhan mulai dari pagar, ralling tangga, balkon, kanopi, teralis, hingga pagar plat cutting dengan desain custom, didukung teknologi laser cutting terkini dan tenaga ahli berpengalaman.</p>
-      </div>
-    </div>
-  </section>
+<script>
+  let barang = JSON.parse(localStorage.getItem('katalog_elf')) || [];
 
-  <section id="layanan">
-    <h2>Katalog Layanan Kami</h2>
-    <div class="services-grid">
-      <div class="service-card"><div class="card-img"><img src="Pagar (1).jpg" alt="Pagar" /></div><div class="card-label">Pagar</div></div>
-      <div class="service-card"><div class="card-img"><img src="Kanopi.jpg" alt="Kanopi" /></div><div class="card-label">Kanopi</div></div>
-      <div class="service-card"><div class="card-img"><img src="Ralling Tangga.jpg" alt="Ralling Tangga" /></div><div class="card-label">Ralling Tangga</div></div>
-      <div class="service-card"><div class="card-img"><img src="Balcon Railing.webp" alt="Balkon" /></div><div class="card-label">Balkon</div></div>
-      <div class="service-card"><div class="card-img"><img src="lampu Tenaga Surya.jpg" alt="Lampu Tenaga Surya" /></div><div class="card-label">Lampu Tenaga Surya</div></div>
-      <div class="service-card"><div class="card-img"><img src="tralis pintu.jpg" alt="Teralis" /></div><div class="card-label">Teralis</div></div>
-      <div class="service-card"><div class="card-img"><img src="Pagar laser cutting.jpg" alt="Pagar Plat Cutting" /></div><div class="card-label">Pagar Plat Cutting</div></div>
-    </div>
-  </section>
+  function tampilkan() {
+    const list = document.getElementById('list-barang');
+    list.innerHTML = '';
+    barang.forEach((item, index) => {
+      list.innerHTML += `
+        <tr>
+          <td><img src="${item.foto}" class="img-preview"></td>
+          <td><strong>${item.nama}</strong></td>
+          <td><button class="btn-del" onclick="hapus(${index})">Hapus</button></td>
+        </tr>
+      `;
+    });
+    localStorage.setItem('katalog_elf', JSON.stringify(barang));
+  }
 
-  <a class="wa-float" href="https://wa.me/6281333366554?text=Halo%2C%20saya%20ingin%20pesan%20produk%20ELF%20Metal%20Art%20Decorative" target="_blank" rel="noopener noreferrer">
-    <span class="wa-label">Pesan Sekarang!</span>
-    <div class="wa-icon">
-      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.469 2.027 7.773L0 32l8.437-2.01A15.94 15.94 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.27 13.27 0 0 1-6.77-1.854l-.485-.288-5.007 1.194 1.217-4.874-.316-.5A13.27 13.27 0 0 1 2.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.273-9.878c-.398-.199-2.355-1.162-2.72-1.294-.365-.133-.631-.199-.897.199-.265.398-1.029 1.294-1.261 1.56-.232.265-.465.298-.863.1-.398-.199-1.681-.619-3.202-1.977-1.183-1.056-1.982-2.36-2.214-2.758-.232-.398-.025-.613.174-.811.179-.178.398-.465.598-.697.199-.232.265-.398.398-.664.133-.265.066-.497-.033-.697-.1-.199-.897-2.162-1.228-2.96-.323-.778-.651-.673-.897-.685-.232-.011-.497-.013-.763-.013-.265 0-.697.1-.1063.497-.365.398-1.394 1.362-1.394 3.322 0 1.96 1.427 3.854 1.626 4.12.199.265 2.808 4.287 6.803 6.013.951.411 1.693.656 2.271.839.954.304 1.823.261 2.509.158.765-.114 2.355-.963 2.688-1.893.332-.93.332-1.727.232-1.893-.099-.166-.365-.265-.763-.464z"/>
-      </svg>
-    </div>
-  </a>
+  function tambah() {
+    const nama = document.getElementById('nama').value;
+    const fileInput = document.getElementById('fotoInput');
+    const deskripsi = document.getElementById('deskripsi').value;
+    const file = fileInput.files[0];
+
+    if (nama && file) {
+      const reader = new FileReader();
+      
+      // Proses file gambar jadi string Base64
+      reader.onload = function(e) {
+        const fotoBase64 = e.target.result;
+        barang.push({ nama, foto: fotoBase64, deskripsi });
+        tampilkan();
+        
+        // Reset Form
+        document.getElementById('nama').value = '';
+        document.getElementById('fotoInput').value = '';
+        document.getElementById('deskripsi').value = '';
+      };
+      
+      reader.readAsDataURL(file);
+    } else {
+      alert("Isi Nama Barang dan Pilih Foto dulu!");
+    }
+  }
+
+  function hapus(index) {
+    if(confirm("Hapus barang ini?")) {
+      barang.splice(index, 1);
+      tampilkan();
+    }
+  }
+
+  tampilkan();
+</script>
+
 </body>
 </html>
