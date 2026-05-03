@@ -7,54 +7,74 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root { --red: #cc1c1c; --border: #e0e0e0; }
-    body { font-family: 'Segoe UI', sans-serif; color: #222; }
-    nav { padding: 15px 20px; border-bottom: 1px solid var(--border); background: #fff; }
-    .logo { font-weight: 800; color: var(--red); text-transform: uppercase; }
-    
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #222; background: #fff; }
+
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: #fff; z-index: 100; }
+    .logo { font-size: 1rem; font-weight: 800; color: var(--red); letter-spacing: 1px; text-transform: uppercase; }
+
     #layanan { padding: 40px 20px; max-width: 1200px; margin: auto; }
-    #layanan h2 { text-align: center; color: var(--red); margin-bottom: 30px; }
-    
+    #layanan h2 { text-align: center; font-size: 1.5rem; font-weight: 800; color: var(--red); margin-bottom: 30px; }
+
     .services-grid { 
         display: grid; 
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-        gap: 20px; 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 15px; 
     }
-    
-    .service-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #fff; }
-    .card-img { width: 100%; height: 180px; overflow: hidden; }
+
+    .service-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+    .card-img { width: 100%; height: 150px; overflow: hidden; border-bottom: 1px solid var(--border); }
     .card-img img { width: 100%; height: 100%; object-fit: cover; }
-    .card-label { text-align: center; padding: 15px; font-weight: 700; }
+    .card-label { text-align: center; padding: 12px; font-size: 0.9rem; font-weight: 700; flex-grow: 1; display: flex; align-items: center; justify-content: center; }
+
+    @media (min-width: 768px) {
+      .services-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
+      .card-img { height: 200px; }
+      .card-label { font-size: 1rem; }
+    }
   </style>
 </head>
 <body>
+
   <nav><div class="logo">ELF METAL ART</div></nav>
 
   <section id="layanan">
     <h2>Katalog Layanan Kami</h2>
     <div class="services-grid" id="produk-container">
-      <!-- Barang statis (yang lama) -->
+      
+      <!-- DAFTAR MANUAL (Data Asli Kamu) -->
       <div class="service-card"><div class="card-img"><img src="Pagar (1).jpg" alt="Pagar"></div><div class="card-label">Pagar</div></div>
       <div class="service-card"><div class="card-img"><img src="Kanopi.jpg" alt="Kanopi"></div><div class="card-label">Kanopi</div></div>
+      <div class="service-card"><div class="card-img"><img src="Ralling Tangga.jpg" alt="Ralling Tangga"></div><div class="card-label">Ralling Tangga</div></div>
+      <div class="service-card"><div class="card-img"><img src="Balcon Railing.webp" alt="Balkon"></div><div class="card-label">Balkon</div></div>
+      <div class="service-card"><div class="card-img"><img src="lampu Tenaga Surya.jpg" alt="Lampu Tenaga Surya"></div><div class="card-label">Lampu Tenaga Surya</div></div>
+      <div class="service-card"><div class="card-img"><img src="tralis pintu.jpg" alt="Teralis"></div><div class="card-label">Teralis</div></div>
+      <div class="service-card"><div class="card-img"><img src="Pagar laser cutting.jpg" alt="Pagar Plat Cutting"></div><div class="card-label">Pagar Plat Cutting</div></div>
+
+      <!-- DISINI TEMPAT BARANG DARI DASHBOARD MUNCUL OTOMATIS -->
+
     </div>
   </section>
 
   <script>
-    function loadKatalog() {
+    function loadKatalogOtomatis() {
       const container = document.getElementById('produk-container');
-      // Kuncinya harus SAMA: 'produkList'
+      // Ambil data yang kamu input di Dashboard
       const dataProduk = JSON.parse(localStorage.getItem('produkList')) || [];
 
       dataProduk.forEach(p => {
         const div = document.createElement('div');
         div.className = 'service-card';
         div.innerHTML = `
-          <div class="card-img"><img src="${p.foto}"></div>
+          <div class="card-img"><img src="${p.foto}" alt="${p.nama}"></div>
           <div class="card-label">${p.nama}</div>
         `;
         container.appendChild(div);
       });
     }
-    window.onload = loadKatalog;
+
+    // Jalankan saat halaman dibuka
+    window.onload = loadKatalogOtomatis;
   </script>
+
 </body>
 </html>
